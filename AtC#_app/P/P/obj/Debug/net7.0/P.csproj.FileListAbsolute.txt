@@ -1,0 +1,14 @@
+/Users/user/Desktop/AtC#_app/P/P/bin/Debug/net7.0/P
+/Users/user/Desktop/AtC#_app/P/P/bin/Debug/net7.0/P.deps.json
+/Users/user/Desktop/AtC#_app/P/P/bin/Debug/net7.0/P.runtimeconfig.json
+/Users/user/Desktop/AtC#_app/P/P/bin/Debug/net7.0/P.dll
+/Users/user/Desktop/AtC#_app/P/P/bin/Debug/net7.0/P.pdb
+/Users/user/Desktop/AtC#_app/P/P/obj/Debug/net7.0/P.GeneratedMSBuildEditorConfig.editorconfig
+/Users/user/Desktop/AtC#_app/P/P/obj/Debug/net7.0/P.AssemblyInfoInputs.cache
+/Users/user/Desktop/AtC#_app/P/P/obj/Debug/net7.0/P.AssemblyInfo.cs
+/Users/user/Desktop/AtC#_app/P/P/obj/Debug/net7.0/P.csproj.CoreCompileInputs.cache
+/Users/user/Desktop/AtC#_app/P/P/obj/Debug/net7.0/P.dll
+/Users/user/Desktop/AtC#_app/P/P/obj/Debug/net7.0/refint/P.dll
+/Users/user/Desktop/AtC#_app/P/P/obj/Debug/net7.0/P.pdb
+/Users/user/Desktop/AtC#_app/P/P/obj/Debug/net7.0/P.genruntimeconfig.cache
+/Users/user/Desktop/AtC#_app/P/P/obj/Debug/net7.0/ref/P.dll
