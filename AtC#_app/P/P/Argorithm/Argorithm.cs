@@ -3,8 +3,19 @@ namespace P.Argorithm
 {
 	public class Argorithm
 	{
+		private Dictionary<long, long> memo = new Dictionary<long, long>();
+
 		public Argorithm()
 		{
+		}
+
+		// リストを横一列に列挙
+		public void Print<T>(List<T> list)
+		{
+			foreach (var v in list)
+			{
+				Console.Write($"{v} ");
+			}
 		}
 
 		// 最大公約数（gcd）を求める
@@ -23,31 +34,84 @@ namespace P.Argorithm
 		// 素数判定：O（√N）
 		public bool IsPrime(int n)
 		{
+			for (var i = 2; i * i <= n; i++)
+			{
+				if (n % i == 0)
+				{
+					return false;
+				}
+			}
 			return true;
 		}
 
-		// N以下の素数を列挙
-		public List<int> Prime()
+		// O(√N）Overflow対策 int64に対応
+		public bool IsPPrime(long n)
 		{
-			return null;
+			for (var i = 2; i < Math.Sqrt(n); i++)
+			{
+				if (n % i == 0)
+				{
+					return false;
+				}
+			}
+			return true;
+
 		}
 
-        // 素因数分解
-        public List<int> Factorization(int n)
+		// N以下の素数を列挙
+		public List<int> Prime(int n)
 		{
-			List<int> result = null;
-			return result;
+			var prime = new List<int>();
+			for (var i = 2; i <= n; i++)
+			{
+				if (IsPrime(i))
+				{
+					prime.Add(i);
+				}
+			}
+			return prime;
 		}
 
         // 約数列挙
-        public List<int> Divisor()
+        public List<long> Divisor(long n)
 		{
-			List<int> divisor = null;
+			var divisor = new List<long>();
+			long cnt = (long)Math.Sqrt(n);
+			for (var i = 1; i <= cnt; i++)
+			{
+				if (n % i == 0)
+				{
+					divisor.Add(i);
+					if (n / i != i)
+					{
+						divisor.Add(n / i);
+					}
+				}
+			}
+			divisor.Sort();
 			return divisor;
 		}
 
-		// 部分文字列の個数をカウント または 等差数列
-		public int SubStringCount(int n)
+
+        // 素因数分解
+        public List<long> Factorization(long n)
+        {
+            var result = new List<long>();
+			var cnt = (int)Math.Sqrt(n);
+			for (var i = 2; i <= cnt; i++)
+			{
+				while (n % i == 0)
+				{
+					n /= i;
+					result.Add(i);
+				}
+			}
+			if (n >= 2) { result.Add(n); }
+            return result;
+        }
+
+        // 部分文字列の個数をカウント
+        public int SubStringCount(int n)
 		{
 			return n * (n + 1) / 2;
 		}
@@ -68,9 +132,9 @@ namespace P.Argorithm
         }
 
 		// 等差数列
-		public int Arithmetic(int a, int z, int n)
+		public int Arithmetic(int n)
 		{
-			return (a + z) * n / 2;
+			return n * (n + 1) / 2;
 		}
 
 		// N!
@@ -102,16 +166,27 @@ namespace P.Argorithm
         }
 
         // リストのスライス
-        static List<T> Slice<T>(List<T> list, int start, int count)
+        public List<T> Slice<T>(List<T> list, int index, int count)
         {
-            return list.GetRange(start, count);
+            return list.GetRange(index, count);
         }
 
 
-        // 整数桁の総和
-        public int DigitsSum(int n)
+        // 整数桁の総和（桁が一桁になるまで総和を分解）
+		// 例）963 > 18 > 9
+        public int DigitsSum(long n)
 		{
-			return 0;
+			var digits = n.ToString().ToCharArray();
+			var digit = new List<int>();
+			foreach (var c in digits) digit.Add(int.Parse(c.ToString()));
+
+			int sum = digit.Sum();
+			// 桁が2桁以上なら分解する
+			if (sum >= 10)
+			{
+				return DigitsSum(sum);
+			}
+			return sum;
 		}
 
 		// 切り上げ処理（相手のHPを0まで削り切る）
@@ -121,6 +196,17 @@ namespace P.Argorithm
 		}
 
 		// 10進数→2進数に変換
+		public string BinaryNumber(int n)
+		{
+			var result = "";
+			while (n > 0)
+			{
+				result = n % 2 + result;
+				n /= 2;
+			}
+			return result;
+		}
+
 
 		// ok/ng境界のチェック
 		public bool IsOk(int x, int n)
@@ -128,48 +214,107 @@ namespace P.Argorithm
 			return x >= n;
 		}
 
-		// 二分探索（単調性がある場合）
-		// 常にokが探索結果
-		public int Binarylogic(int n)
-		{
-			int ok = -1; // 常に条件を満たす最も小さい値
-			int ng = n; //常に条件を満たさない最も大きい値
+        // 二分探索（単調性がある場合）
+        // 常にokが探索結果
+		// 二分探索で最小のOK（インデックス）を探す
+        public int BinarySearchMin(int left, int right, int n)
+        {
+            int ok = right; // OK（条件を満たす）
+            int ng = left;  // NG（条件を満たさない）
 
-			// 未探索領域がなくなるまで繰り返す
-			// ng - ok = 1は探索完了
-			while (ng - ok > 1)
+            while (Math.Abs(ok - ng) > 1)
+            {
+                int mid = (ok + ng) / 2;
+                if (IsOk(mid, n))
+                    ok = mid;
+                else
+                    ng = mid;
+            }
+            return ok;
+        }
+
+
+        // 二分探索（単調性がある場合）
+        // 常にokが探索結果
+        // 二分探索で最大のOK（インデックス）を探す
+        public int BinarySearchMax(int left, int right, int n)
+        {
+            int ok = left;  // OK
+            int ng = right; // NG
+
+            while (Math.Abs(ok - ng) > 1)
+            {
+                int mid = (ok + ng) / 2;
+                if (IsOk(mid, n))
+                    ok = mid;
+                else
+                    ng = mid;
+            }
+            return ok;
+        }
+
+        // n頂点／m本の辺
+        // グラフ：隣接リストの作成（無向グラフ）
+        public List<int>[] AdjGraph(int n, int m, List<(int ,int)> valueTuple)
+        {
+            List<int>[] graph = new List<int>[n];
+            // 隣接リストの初期化
+            for (var i = 0; i < n; i++) graph[i] = new List<int>();
+            
+            for (var i = 0; i < m; i++)
+            {
+				var (v, u) = valueTuple[i];
+				// 0-indexed
+				v -= 1; u -= 1;
+                // 頂点vに頂点uの辺を張る
+                graph[v].Add(u);
+                // 頂点uに頂点vの辺を張る
+                graph[u].Add(v);
+            }
+            return graph;
+        }
+
+        // BFS（幅優先探索）
+		// Enqueue：末尾に要素の追加 pythonだと.append()
+		// Dequeue：queの先頭要素を取り出しqueから削除 pythonだと .popleft()
+        public bool[] Bfs(List<int>[] graph, int n, int start)
+		{
+			// 先入先出し（頂点の訪問リスト）
+			var que = new Queue<int>();
+            // 頂点の訪問の管理用フラグ
+            bool[] visited = new bool[n];
+			// 最初の訪問する頂点を設定
+			que.Enqueue(start);
+			// 訪問済みに変更
+			visited[start] = true;
+			while (que.Count > 0)
 			{
-				// okからngに切り替わる境界の最小のインデックスを探す
-				int mid = (ok + ng) / 2;
-
-				if (IsOk(mid, n))
+				var v = que.Dequeue();
+				foreach (var nv in graph[v])
 				{
-					ok = mid;
+					// 次の訪問予定の頂点が列に並んでいるイメージ
+					if (!visited[nv])
+					{
+						visited[nv] = true;
+						que.Enqueue(nv);
+					}
 				}
-				else
-				{
-					ng = mid;
-				}
-
-			} 
-			return ok;
-		}
-
-		// BFS（幅優先探索）
-		public bool Bfs()
-		{
-			return true;
+			}
+			return visited;
 		}
 
 
 		// DFS（深さ優先探索）
-		public bool Dfs()
+		public bool[] Dfs(List<int>[] graph, int v)
 		{
-			return true;
+			visited[v] = true;
+			foreach (var nv in graph[v])
+			{
+				if (!visited[nv]) Dfs(graph, nv);
+			}
+
+			return visited;
 		}
-
-
-		// グラフ：隣接リストの作成
 
 
 		// 二部グラフの判定
@@ -179,7 +324,17 @@ namespace P.Argorithm
 		// nC2の数え上げ
 
 
-		// 累積和（区間差を求める）
+		// 累積和の作成
+		public long[] PrefixSum(int n, int[] a)
+		{
+			var s = new long[n + 1];
+			for (var i = 0; i < n; i++)
+			{
+				s[i + 1] = s[i] + a[i];
+			}
+			return s;
+		} 
+
 
 		// 動的計画法
 
@@ -187,14 +342,34 @@ namespace P.Argorithm
 		// ナップザック問題
 
 
-		// メモ化（フィボナッチ数列）
+		// メモ化（フィボナッチ数列）f(n) = f(n - 1) + f(n - 2)
+		public long Memo(int n)
+		{
+			if (memo.TryGetValue(n, out var v)) return v;
+			long res = Memo(n - 1) + Memo(n - 2);
+			memo[n] = res;
+			return res;
+		}
 
+		// bit全探索（部分和）：合計がちょうどkにする方法があルか
+		public bool IsPartialSum(int n, int k, int[] a)
+		{
+			// 2^n通り試す
+			for (var bit = 0; bit < (1 << n); bit++)
+			{
+				int sum = 0;
+				for (var i = 0; i < n; i++)
+				{
+					if ((bit & (1 << i)) != 0)
+					{
+						sum += a[i];
+					}
+				}
+				if (sum == k) return true;
+			}
+			return false;
+		}
 
-		// 部分和
-
-		// bit全探索
-
-		// 全探索
 
 		// 集合系（差集合・和集合・積集合・対称差）
 

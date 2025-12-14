@@ -3,6 +3,15 @@ namespace P.ABC
 {
 	public class AtCorderA
 	{
+        public void Ac436()
+        {
+            int n = int.Parse(Console.ReadLine());
+            string s = Console.ReadLine();
+            string t = "";
+            for (var i = 0; i < n - s.Length; i++) t += "o";
+            Console.Write(t + s);
+        }
+
         // 等差数列
         public void Ac435()
         {

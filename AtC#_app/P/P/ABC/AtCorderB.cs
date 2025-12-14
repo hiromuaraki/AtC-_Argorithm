@@ -8,6 +8,38 @@ namespace P.ABC
 		{
 		}
 
+		// 次魔法陣を作る（二次元配列を扱う練習）
+		public void Ac436()
+		{
+			int n = int.Parse(Console.ReadLine());
+			var g = new int[n, n];
+			int r = 0, c = (n - 1) / 2;
+			g[r, c] = 1;
+
+			for (var k = 2; k <= n * n; k++)
+			{
+				var (x, y) = ((r + n - 1) % n, (c + 1) % n);
+				if (g[x, y] == 0)
+				{
+					r = x; c = y;
+				}
+				else
+				{
+					r = (r + 1) % n;
+				}
+				g[r, c] = k;
+			}
+
+			for (var i = 0; i < n; i++)
+			{
+				for (var j = 0; j < n; j++)
+				{
+					Console.Write($"{g[i, j]} ");
+				}
+				Console.WriteLine();
+			}
+		}
+
 		// 計算量：O(N^3) 全探索（難しい）全ての(l, r)の組を走査（要勉強）
 		// 1 <= l <= r <= n（整数の組）
 		// S = Al + Al + 1 + ...Arを求める

@@ -7,6 +7,31 @@ namespace P.ABC
 		{
 		}
 
+		public void Ac436()
+		{
+			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			int n = line[0], m = line[1];
+			var st = new HashSet<(int, int)>();
+			int ans = 0;
+			for (var i = 0; i < m; i++)
+			{
+				int[] l = Console.ReadLine().Split().Select(int.Parse).ToArray();
+				int r = l[0], c = l[1];
+				r -= 1; c -= 1;
+
+				if (st.Contains((r, c))) { continue; }
+                if (st.Contains((r, c + 1))) { continue; }
+                if (st.Contains((r + 1, c))) { continue; }
+                if (st.Contains((r + 1, c + 1)))  { continue; }
+				st.Add((r, c));
+				st.Add((r, c + 1));
+                st.Add((r + 1, c));
+				st.Add((r + 1, c + 1));
+				ans++;
+            }
+			Console.WriteLine(ans);
+		}
+
 		public void Ac435()
 		{
             int n = int.Parse(Console.ReadLine());
