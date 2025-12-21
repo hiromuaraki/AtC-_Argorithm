@@ -8,6 +8,39 @@ namespace P.ABC
 		{
 		}
 
+		// 実装少し重い
+		// bをsetにすることで各行に含まれる数だけを見ればいいのでO(N^2)にできる
+		public void Ac437()
+		{
+			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			int h = line[0], w = line[1], n = line[2];
+			var g = new int[h, w];
+			var b = new HashSet<int>();
+			for (var i = 0; i < h; i++)
+			{
+				var a = Console.ReadLine().Split().Select(int.Parse).ToArray();
+				for (var j = 0; j < w; j++)
+				{
+					g[i, j] = a[j];
+				}
+			}
+
+			for (var i = 0; i < n; i++) b.Add(int.Parse(Console.ReadLine()));
+
+			int ans = 0;
+			for (var i = 0; i < h; i++)
+			{
+				int count = 0;
+				for (var j = 0; j < w; j++)
+				{
+					if (b.Contains(g[i, j])) count++;
+				}
+				ans = Math.Max(ans, count);
+			}
+			Console.Write(ans);
+		}
+
+
 		// 次魔法陣を作る（二次元配列を扱う練習）
 		public void Ac436()
 		{

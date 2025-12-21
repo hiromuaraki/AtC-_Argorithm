@@ -209,14 +209,33 @@ namespace P.Argorithm
 
 
 		// ok/ng境界のチェック
-		public bool IsOk(int x, int n)
+		public bool IsOk(long aMid, long x)
 		{
-			return x >= n;
+			return aMid >= x;
 		}
 
-        // 二分探索（単調性がある場合）
+
         // 常にokが探索結果
-		// 二分探索で最小のOK（インデックス）を探す
+		// 二分探索（単調性あり）
+        // x >= ai以上の要素の個数を返す関数 pythonのbisect_left
+        public int BisectLeft(long x, long[]a)
+        {
+            int ok = -1; // OK（条件を満たす）
+            int ng = a.Length;  // NG（条件を満たさない）
+
+            while (Math.Abs(ng - ok) > 1)
+            {
+                int mid = (ok + ng) / 2;
+                if (IsOk(x, a[mid]))
+                    ok = mid;
+                else
+                    ng = mid;
+            }
+            return ok + 1;
+        }
+
+        // 常にokが探索結果
+        // 二分探索で最小のOK（インデックス）を探す
         public int BinarySearchMin(int left, int right, int n)
         {
             int ok = right; // OK（条件を満たす）
@@ -305,12 +324,12 @@ namespace P.Argorithm
 
 
 		// DFS（深さ優先探索）
-		public bool[] Dfs(List<int>[] graph, int v)
+		public bool[] Dfs(List<int>[] graph, int v, bool[] visited)
 		{
 			visited[v] = true;
 			foreach (var nv in graph[v])
 			{
-				if (!visited[nv]) Dfs(graph, nv);
+				if (!visited[nv]) Dfs(graph, nv, visited);
 			}
 
 			return visited;
@@ -325,7 +344,7 @@ namespace P.Argorithm
 
 
 		// 累積和の作成
-		public long[] PrefixSum(int n, int[] a)
+		public long[] PrefixSum(long n, long[] a)
 		{
 			var s = new long[n + 1];
 			for (var i = 0; i < n; i++)

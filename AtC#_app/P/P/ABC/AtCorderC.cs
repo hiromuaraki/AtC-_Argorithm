@@ -7,6 +7,52 @@ namespace P.ABC
 		{
 		}
 
+		// 貪欲法＋ソート（難しい）
+		public void Ac437()
+		{
+			var t = int.Parse(Console.ReadLine());
+
+			for (var i = 0; i < t; i++)
+			{
+				var cost = new List<(long, long, long)>();
+				long totalPower = 0; 
+				var n = int.Parse(Console.ReadLine());
+
+				for (var j = 0; j < n; j++)
+				{
+					var line = Console.ReadLine().Split().Select(long.Parse).ToArray();
+					long w = line[0], p = line[1];
+					totalPower += p; // 全員でソリを引く
+					cost.Add((p + w, w, p));
+				}
+				// 小さいコストのトナカイをソリに乗せていくのが
+				// ソリに乗せるトナカイの数を最大化させる最適
+				cost.Sort();
+				long weight = 0;
+				long power = totalPower; // 現在のトナカイの力の合計を管理
+
+                int ans = 0;
+				for (var k = 0; k < cost.Count; k++)
+				{
+					var (wp, w, p) = cost[k];
+					// このトナカイをソリに乗せられるか
+					if (power - p >= w + weight)
+					{
+						power -= p;
+						weight += w;
+						ans++;
+					}
+					else
+					{
+						// これ以上がトナカイが誰も乗れない場合
+						break;
+					}
+				}
+				Console.WriteLine(ans);
+			}
+
+		}
+
 		public void Ac436()
 		{
 			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();

@@ -3,6 +3,13 @@ namespace P.ABC
 {
 	public class AtCorderA
 	{
+        public void Ac437()
+        {
+            var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            int a = line[0], b = line[1];
+            Console.WriteLine(a * 12 + b);
+        }
+
         public void Ac436()
         {
             int n = int.Parse(Console.ReadLine());
