@@ -8,6 +8,33 @@ namespace P.ABC
 		{
 		}
 
+		// 部分文字列＋周期＋全探索
+		public void Ac438()
+		{
+            var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            int n = line[0], m = line[1];
+            var s = Console.ReadLine();
+            var t = Console.ReadLine();
+
+            int ans = 100_000;
+            // n - m + 1通り試す（m文字ペア全部探す）
+            for (var i = 0; i <= n - m; i++)
+            {
+                int cost = 0; // tが部分文字列sと一致する最小の操作回数
+                for (var j = 0; j < m; j++)
+                {
+                    int sDigit = s[i + j];
+                    int tDigit = t[j];
+                    // 時計：s桁からt桁まので位置＝操作回数(+1操作)
+                    // 負の値でも0-9の範囲に収めるため+10し調整
+                    cost += (sDigit - tDigit + 10) % 10;
+                }
+                ans = Math.Min(ans, cost);
+            }
+            Console.WriteLine(ans);
+        }
+    
+
 		// 実装少し重い
 		// bをsetにすることで各行に含まれる数だけを見ればいいのでO(N^2)にできる
 		public void Ac437()

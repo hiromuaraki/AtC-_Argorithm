@@ -3,6 +3,22 @@ namespace P.ABC
 {
 	public class AtCorderA
 	{
+        // 周期性の問題（難しい）
+        public void Ac438()
+        {
+            var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            int d = line[0], f = line[1];
+            // コンテスト開始日から7日ずつ進め年を跨いだ直後の位置を求める
+            while (f <= d)
+            {
+                f += 7;
+            }
+            Console.WriteLine(f - d);
+            // 7日周期で何日ズレているか
+            // 1年＝D日経つと周期上ではD日分ずれる,そのズレを7で割った余り
+            //Console.WriteLine((f - d + 7) % 7);
+        }
+
         public void Ac437()
         {
             var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
