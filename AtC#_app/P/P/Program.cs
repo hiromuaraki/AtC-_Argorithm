@@ -15,11 +15,15 @@ class Program
         ENTRY.Study study = new ENTRY.Study();
         AtCorderA acA = new AtCorderA();
         JOI.Joi joi = new JOI.Joi();
+        MATH.MathAlgo math = new MATH.MathAlgo();
         AtCorderB acB = new AtCorderB();
         AtCorderC acC = new AtCorderC();
         AtCorderD acD = new AtCorderD();
+
         //acA.Ac438();
-        acB.Ac438();
+        acB.Ac122();
+        //math.Math091();
+        //joi.Q9();
         //acC.Ac437();
         //acD.Ac437_2();
         //Solve();
@@ -46,8 +50,8 @@ class Program
             var v = Console.ReadLine().Split().Select(int.Parse).ToArray();
             list.Add((v[0], v[1]));
         }
-        var ans = alg.AdjGraph(n, m, list);
-        Console.Write(ans);
+        var gList = alg.AdjGraph(n, m, list);
+        Console.Write(gList);
 
     }
 }

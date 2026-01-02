@@ -201,6 +201,33 @@ namespace P.ABC
 			}
 		}
 
+		public void Ac308()
+		{
+				var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+				int n = line[0], m = line[1];
+				string[] c = Console.ReadLine().Split();
+				string[] d = Console.ReadLine().Split();
+				int[] p = Console.ReadLine().Split().Select(int.Parse).ToArray();
+				var mapPrice = new Dictionary<string, int>();
+
+				for (var i = 0; i < d.Length; i++)
+				{
+					mapPrice.TryAdd(d[i], p[i + 1]);
+				}
+
+				int sum = 0;
+				for (var i = 0; i < c.Length; i++)
+				{
+					if (mapPrice.ContainsKey(c[i]))
+					{
+						sum += mapPrice[c[i]];
+						continue;
+					}
+					sum += p[0];
+				}
+				Console.WriteLine(sum);
+        }
+
 		public void Ac301()
 		{
 			int n = int.Parse(Console.ReadLine());
@@ -236,6 +263,25 @@ namespace P.ABC
             Console.WriteLine(String.Join("", a));
 		}
 
+		// set+tupleをうまく組み合わせてデータを保持
+		public void Ac216()
+		{
+			int n = int.Parse(Console.ReadLine());
+			var names = new HashSet<(string, string)>();
+			for (var i = 0; i < n; i++)
+			{
+				var line = Console.ReadLine().Split();
+				string s = line[0], t = line[1];
+				if (names.Contains((s, t)))
+				{
+					Console.WriteLine("Yes");
+					Environment.Exit(0);
+				}
+				names.Add((s, t));
+			}
+			Console.WriteLine("No");
+		}
+
 		public void Ac211()
 		{
 			var s = new string[4];
@@ -245,6 +291,47 @@ namespace P.ABC
 			if (st != 4) ans = "No";
 			Console.WriteLine(ans);
 
+		}
+
+		// 三角形の成立条件 li + lj > lk
+		public void Ac175()
+		{
+			int n = int.Parse(Console.ReadLine());
+			var l = Console.ReadLine().Split().Select(int.Parse).ToList();
+			int count = 0;
+			l.Sort();
+			for (var i = 0; i < n; i++)
+			{
+				for (var j = i + 1; j < n; j++)
+				{
+					for (var k = j + 1; k < n; k++)
+					{
+						if (l[i] != l[j] && l[i] != l[k] && l[j] != l[k])
+						{
+							if (l[i] + l[j] > l[k])
+							{
+								count++;
+							}
+						}
+					}
+				}
+			}
+			Console.WriteLine(count);
+		}
+
+		public void Ac143()
+		{
+			int n = int.Parse(Console.ReadLine());
+			var d = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			int sum = 0;
+			for (var i = 0; i < n - 1; i++)
+			{
+				for (var j = i + 1; j < n; j++)
+				{
+					sum += d[i] * d[j];
+				}
+			}
+			Console.WriteLine(sum);
 		}
 
         // 一つ前の高さの最大値として保持しておき状態を更新していく
@@ -261,6 +348,48 @@ namespace P.ABC
             }
             Console.WriteLine(ans);
         }
+
+
+		public void Ac122()
+		{
+			string s = Console.ReadLine();
+			int n = s.Length;
+			var t = new HashSet<char> {'A', 'C', 'G', 'T'};
+			int count = 0;
+			int l = 0;
+			for (var r = 0; r < n; r++)
+			{
+				if (t.Contains(s[r])) count = Math.Max(count, r - l + 1);
+				else l = r + 1;
+			}
+			Console.WriteLine(count);
+		}
+
+		public void Ac109()
+		{
+			var wList = new List<string>();
+			int n = int.Parse(Console.ReadLine());
+			for (var i = 0; i < n; i++)
+			{
+				string s = Console.ReadLine();
+				if (wList.Contains(s))
+				{
+					Console.WriteLine("No");
+					Environment.Exit(0);
+				}
+				wList.Add(s);
+			}
+			for (var i = 0; i < n - 1; i++)
+			{
+				int len = wList[i].Length;
+				if (wList[i][len - 1] != wList[i + 1][0])
+				{
+					Console.WriteLine("No");
+					Environment.Exit(0);
+				}
+			}
+			Console.WriteLine("Yes");
+		}
 
         public void Ac081()
 		{
@@ -285,6 +414,13 @@ namespace P.ABC
 			}
 			Console.WriteLine(count);
         }
+
+		// set() → s.Distinct()
+		public void Ac063()
+		{
+			var s = Console.ReadLine();
+			Console.WriteLine(s.Length == s.Distinct().Count() ? "yes" : "no");
+		}
 
 
 		public void Ac050()

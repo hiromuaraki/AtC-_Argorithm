@@ -148,21 +148,10 @@ namespace P.Argorithm
 		// 2点間の距離（ユークリッド距離）
 		public double EuclideanDist((int x, int y) a, (int x, int y) b)
 		{
-			// ValueTuple型（.ToTuple不要）
-			var(x1, y1) = a;
-			var(x2, y2) = b;
-			return Math.Sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
-        }
-
-        // 2点間の距離（ユークリッド距離）絶対値あり
-        public double EuclideanAbsDist((int x, int y) a, (int x, int y) b)
-        {
-            // ValueTuple型（.ToTuple不要）
-            var (x1, y1) = a;
-            var (x2, y2) = b;
-			int x = Math.Abs(x1 - x2);
-			int y = Math.Abs(y1 - y2);
-            return Math.Sqrt(x*x + y*y);
+			// オーバーフロー対策でdouble型を明示
+			double dx = a.x - b.x;
+			double dy = a.y - b.y;
+            return Math.Sqrt(dx * dx + dy * dy);
         }
 
         // リストのスライス

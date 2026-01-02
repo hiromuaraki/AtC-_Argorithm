@@ -110,6 +110,53 @@ namespace P.JOI
 				Console.WriteLine(rank);
 			}
 		}
+
+		public void Q8()
+		{
+			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			int n = line[0], m = line[1];
+			int[] a = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var b = new HashSet<int>(Console.ReadLine().Split().Select(int.Parse));
+			Dictionary<int, int> box = new Dictionary<int, int>();
+
+			for (var i = 0; i < a.Length; i++)
+			{
+				// キーが存在しない場合キー値のペアを新規追加
+				if (!box.TryAdd(a[i], 1))
+				{
+					box[a[i]]++;
+				}
+			}
+
+			int ans = 0;
+			foreach (var b_i in b)
+			{
+				if (box.ContainsKey(b_i)) ans += box[b_i];
+			}
+			Console.WriteLine(ans);
+		}
+
+		public void Q9()
+		{
+			int n = int.Parse(Console.ReadLine());
+			string s = Console.ReadLine();
+			for (var i = 0; i < n; i++)
+			{
+				for (var j = i + 1; j < n; j++)
+				{
+					for (var k = j + 1; k < n; k++)
+					{
+						if (s[i] == 'I' && s[j] == 'O' && s[k] == 'I')
+						{
+							Console.WriteLine("Yes");
+							Environment.Exit(0);
+
+						}
+					}
+				}
+			}
+			Console.WriteLine("No");
+		}
 	}
 }
 
