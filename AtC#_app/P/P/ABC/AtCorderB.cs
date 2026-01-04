@@ -8,6 +8,31 @@ namespace P.ABC
 		{
 		}
 
+		public void Ac439()
+		{
+			int n = int.Parse(Console.ReadLine());
+			int sum = n;
+			var st = new HashSet<int>();
+			while (sum != 1)
+			{
+				if (st.Contains(sum))
+				{
+					Console.WriteLine("No");
+					return;
+				}
+				st.Add(sum);
+				var s = sum.ToString();
+				int digit = 0;
+				for (var i = 0; i < s.Length; i++)
+				{
+					int digitN = int.Parse(s[i].ToString());
+					digit += digitN * digitN;
+				}
+				sum = digit;
+			}
+			Console.WriteLine("Yes");
+		}
+
 		// 部分文字列＋周期＋全探索
 		public void Ac438()
 		{
@@ -170,7 +195,98 @@ namespace P.ABC
             
         }
 
-		
+		public void Ac418()
+		{
+			string s = Console.ReadLine();
+			int n = s.Length;
+
+			double ans = 0.0;
+			for (var l = 0; l < n; l++)
+			{
+				if (s[l] != 't') continue;
+				for (var r = l + 2; r < n; r++)
+				{
+					if (s[r] != 't') continue;
+					int len = r - l + 1;
+					string t = s.Substring(l, len);
+					double x = t.Count(c => c == 't');
+					ans = Math.Max(ans, (x - 2) / (len - 2));
+				}
+			}
+			Console.WriteLine(ans);
+		}
+
+
+		public void Ac411()
+		{
+			int n = int.Parse(Console.ReadLine());
+			var d = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var dist = new List<int>();
+			for (var i = 0; i < n - 1; i++)
+			{
+				dist.Add(d[i]);
+				int sum = d[i];
+				for (var j = i + 1; j < n - 1; j++)
+				{
+					sum += d[j];
+					dist.Add(sum);
+				}
+				Console.WriteLine(string.Join(" ", dist));
+				dist = new List<int>();
+            }
+
+		}
+
+		// O(N^2)
+		// j - i = k - jはi, jが決まればkが決まる
+		// 式変形し、k = 2j - iでkが求まるためkは固定しない
+		public void Ac393()
+		{
+            string s = Console.ReadLine();
+            int count = 0;
+            int n = s.Length;
+
+			for (var i = 0; i < n; i++)
+			{
+				for (var j = i + 1; j < n; j++)
+				{
+					int k = 2*j - i;
+					if (k >= n) continue;
+
+					if (s[i] == 'A' && s[j] == 'B' && s[k] == 'C')
+                    {
+                        count++;
+                    }
+                }
+			}
+			Console.WriteLine(count);
+        }
+
+		// 愚直：O(N^3)
+		public void Ac393_n3()
+		{
+			string s = Console.ReadLine();
+			int count = 0;
+			int n = s.Length;
+
+			for (var i = 0; i < n; i++)
+			{
+				for (var j = i + 1; j < n; j++)
+				{
+					for (var k = j + 1; k < n; k++)
+					{
+						// 等間隔の(i,j,k）組を調べる
+						if (j - i != k - j) continue;
+                        if (s[i] == 'A' && s[j] == 'B' && s[k] == 'C')
+						{
+							count++;
+						}
+					}
+				}
+			}
+			Console.WriteLine(count);
+		}
+
 
 		// 2点間の最大の距離（ユークリッド距離を求める）
 		// List<(int x, int y)>でリストにタプルのように追加可能
@@ -199,6 +315,36 @@ namespace P.ABC
                 }
 				Console.WriteLine(ans);
 			}
+		}
+
+		public void Ac342()
+		{
+			var s = Console.ReadLine().ToList();
+			var t = new List<char>(s);
+			s.Sort();
+			char c = s[0] == s[1] ? s[s.Count - 1] : s[0];
+			Console.WriteLine(t.IndexOf(c) + 1);
+		}
+
+		// 部分文字列＋回文（文字列の切り取りの範囲設計）
+		public void Ac320()
+		{
+			string s = Console.ReadLine();
+			int ans = 1;
+			for (var r = 0; r < s.Length; r++)
+			{
+				for (var l = 0; l < s.Length - r; l++)
+				{
+					var t = s.Substring(r, l + 1);
+					var rT = string.Join("", t.Reverse().ToArray());
+					if (t.ToString() == rT)
+					{
+						ans = Math.Max(ans, t.Length);
+					}
+				}
+			}
+			Console.WriteLine(ans);
+
 		}
 
 		public void Ac308()
@@ -252,6 +398,35 @@ namespace P.ABC
 			
  		}
 
+		public void Ac279()
+		{
+			string s = Console.ReadLine();
+            string t = Console.ReadLine();
+
+			if (s == t)
+			{
+				Console.WriteLine("Yes");
+				return;
+			}
+
+			int n = s.Length - t.Length + 1;
+			for (var i = 0; i < n; i++)
+			{
+				string x = "";
+				for (var j = 0; j < t.Length; j++)
+				{
+					x += s[i + j];
+				}
+
+				if (x == t)
+				{
+					Console.WriteLine("Yes");
+					return;
+				}
+			}
+			Console.WriteLine("No");
+        }
+
 		// 差集合
 		public void Ac257()
 		{
@@ -262,6 +437,40 @@ namespace P.ABC
 			a.ExceptWith(b);
             Console.WriteLine(String.Join("", a));
 		}
+
+		public void Ac223()
+		{
+			string s = Console.ReadLine();
+			var list = new List<string>();
+			list.Add(s);
+			for (var i = 0; i < s.Length - 1; i++)
+			{
+				string t = s.Substring(i + 1);
+				int slice = t.Length;
+				list.Add(t + s.Substring(0, s.Length - slice));
+			}
+			list.Sort();
+			Console.WriteLine(list[0]);
+            Console.WriteLine(list[s.Length - 1]);
+        }
+
+		public void Ac221()
+		{
+			var s = Console.ReadLine().ToCharArray();
+            var t = Console.ReadLine().ToCharArray();
+			int n = s.Length;
+			for (var i = 0; i < n; i++)
+			{
+				if (s[i] != t[i])
+				{
+					(t[i], t[i + 1]) = (t[i + 1], t[i]);
+					break;
+				}
+			}
+			string ss = string.Join("", s);
+            string tt = string.Join("", t);
+            Console.WriteLine(ss == tt ? "Yes" : "No");
+        }
 
 		// set+tupleをうまく組み合わせてデータを保持
 		public void Ac216()
@@ -275,7 +484,7 @@ namespace P.ABC
 				if (names.Contains((s, t)))
 				{
 					Console.WriteLine("Yes");
-					Environment.Exit(0);
+					return;
 				}
 				names.Add((s, t));
 			}
@@ -334,6 +543,38 @@ namespace P.ABC
 			Console.WriteLine(sum);
 		}
 
+		public void Ac135()
+		{
+			int n = int.Parse(Console.ReadLine());
+			var p = Console.ReadLine().Split().Select(int.Parse).ToArray();
+
+			int diffCount = 0;
+			for (var i = 0; i < n; i++)
+			{
+				if (i + 1 != p[i]) diffCount++;
+			}
+			Console.WriteLine(diffCount <= 2 ? "YES" : "NO");
+		}
+
+		public void Ac129()
+		{
+			int n = int.Parse(Console.ReadLine());
+			var w = Console.ReadLine().Split().Select(int.Parse).ToArray();
+
+			int minDiff = 100_000_000;
+			for (var t = 1; t < n; t++)
+			{
+				var (s1, s2) = (0, 0);
+				for (var i = 0; i < n; i++)
+				{
+					if (i + 1 <= t) s1 += w[i];
+					else s2 += w[i];
+				}
+				minDiff = Math.Min(minDiff, Math.Abs(s1 - s2));
+			}
+			Console.WriteLine(minDiff);
+		}
+
         // 一つ前の高さの最大値として保持しておき状態を更新していく
         public void Ac124()
         {
@@ -375,7 +616,7 @@ namespace P.ABC
 				if (wList.Contains(s))
 				{
 					Console.WriteLine("No");
-					Environment.Exit(0);
+					return;
 				}
 				wList.Add(s);
 			}
@@ -385,7 +626,7 @@ namespace P.ABC
 				if (wList[i][len - 1] != wList[i + 1][0])
 				{
 					Console.WriteLine("No");
-					Environment.Exit(0);
+					return;
 				}
 			}
 			Console.WriteLine("Yes");

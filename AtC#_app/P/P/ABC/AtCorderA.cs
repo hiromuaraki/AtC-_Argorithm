@@ -3,6 +3,15 @@ namespace P.ABC
 {
 	public class AtCorderA
 	{
+
+        public void Ac439()
+        {
+            int n = int.Parse(Console.ReadLine());
+            int sq = 2;
+            for (var i = 1; i < n; i++) sq *= 2;
+            Console.WriteLine(sq - 2*n);
+        }
+
         // 周期性の問題（難しい）
         public void Ac438()
         {

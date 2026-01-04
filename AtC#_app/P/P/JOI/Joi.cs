@@ -149,13 +149,30 @@ namespace P.JOI
 						if (s[i] == 'I' && s[j] == 'O' && s[k] == 'I')
 						{
 							Console.WriteLine("Yes");
-							Environment.Exit(0);
+							return;
 
 						}
 					}
 				}
 			}
 			Console.WriteLine("No");
+		}
+
+		public void Q10()
+		{
+			int n = int.Parse(Console.ReadLine());
+			var a = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			int current = 1, maxLen = 1;
+
+			for (var i = 0; i < n - 1; i++)
+			{
+				// 昇順の連続区間なら区間を広げる
+				if (a[i] <= a[i + 1]) current++;
+				else current = 1;
+				maxLen= Math.Max(maxLen, current);
+            }
+			Console.WriteLine(maxLen);
+			
 		}
 	}
 }

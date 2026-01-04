@@ -7,6 +7,35 @@ namespace P.ABC
 		{
 		}
 
+		public void Ac439()
+		{
+			int n = int.Parse(Console.ReadLine());
+			int[] cnt = new int[n + 1];
+			int limit = (int)Math.Sqrt(n);
+
+			for (var x = 1; x <= limit; x++)
+			{
+				for (var y = x + 1; y <= limit; y++)
+				{
+					long sq = x * x + y * y;
+					if (sq > n) break;
+					cnt[sq]++;
+				}
+			}
+
+			var good = new List<int>();	
+			for (var i = 0; i < cnt.Length; i++)
+			{
+				if (cnt[i] == 1)
+				{
+					good.Add(i);
+				}
+			}
+
+			Console.WriteLine(good.Count);
+			Console.WriteLine(string.Join(" ", good));
+		}
+
 		// 貪欲法＋ソート（難しい）
 		public void Ac437()
 		{
@@ -89,7 +118,7 @@ namespace P.ABC
 				if (i >= cur)
 				{
 					Console.WriteLine(i);
-					Environment.Exit(0);
+					return;
 				}
 				cur = Math.Max(cur, i + a[i]);
 			}
