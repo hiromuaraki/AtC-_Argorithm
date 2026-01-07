@@ -326,6 +326,23 @@ namespace P.ABC
 			Console.WriteLine(t.IndexOf(c) + 1);
 		}
 
+		public void Ac326()
+		{
+			int n = int.Parse(Console.ReadLine());
+			int a = n / 100;
+			int b = (n % 100) / 10;
+			int c = n % 10;
+
+            while (a*b != c)
+			{
+				string k = string.Join("", a * 100 + b * 10 + c + 1);
+				a = int.Parse(k[0].ToString());
+                b = int.Parse(k[1].ToString());
+                c = int.Parse(k[2].ToString());
+            }
+			Console.WriteLine(a*100 + b*10 + c);
+		}
+
 		// 部分文字列＋回文（文字列の切り取りの範囲設計）
 		public void Ac320()
 		{
@@ -373,6 +390,29 @@ namespace P.ABC
 				}
 				Console.WriteLine(sum);
         }
+
+		public void Ac307()
+		{
+			int n = int.Parse(Console.ReadLine());
+			var s = new string[n];
+			for (var i = 0; i < n; i++) s[i] = Console.ReadLine();
+
+			for (var i = 0; i < n; i++)
+			{
+				for (var j = 0; j < n; j++)
+				{
+					if (i == j) continue;
+					string t = s[i] + s[j];
+
+					if (t == string.Join("", t.Reverse()))
+					{
+						Console.WriteLine("Yes");
+						return;
+					}
+				}
+			}
+			Console.WriteLine("No");
+		}
 
 		public void Ac301()
 		{
@@ -438,6 +478,15 @@ namespace P.ABC
             Console.WriteLine(String.Join("", a));
 		}
 
+		// 部分文字列：sがtに含まれるかどうかだけ見ればいい
+		public void Ac230()
+		{
+			string s = Console.ReadLine();
+			string t = "";
+			for (var i = 0; i < 10; i++) t += "oxx";
+			Console.WriteLine(t.Contains(s) ? "Yes" : "No");
+		}
+
 		public void Ac223()
 		{
 			string s = Console.ReadLine();
@@ -501,6 +550,26 @@ namespace P.ABC
 			Console.WriteLine(ans);
 
 		}
+
+		public void Ac177()
+		{
+			string s = Console.ReadLine();
+            string t = Console.ReadLine();
+			int n = s.Length - t.Length + 1;
+			int tLen = t.Length;
+			int ans = 100_000_000;
+			for (var i = 0; i < n; i++)
+			{
+				string k = s.Substring(i, tLen);
+				int diffCount = 0;
+				for (var j = 0; j < tLen; j++)
+				{
+					if (k[j] != t[j]) diffCount++;
+				}
+				ans = Math.Min(ans, diffCount);
+			}
+			Console.WriteLine(ans);
+        }
 
 		// 三角形の成立条件 li + lj > lk
 		public void Ac175()
@@ -632,6 +701,47 @@ namespace P.ABC
 			Console.WriteLine("Yes");
 		}
 
+
+		public void Ac106()
+		{
+			int n = int.Parse(Console.ReadLine());
+			int divisor = 0;
+			int ans = 0;
+
+			for (var i = 1; i <= n; i++)
+			{
+				if (i % 2 == 0) continue;
+				divisor = 0;
+				for (var j = 1; j <= i; j++)
+				{
+					if (i % j == 0)
+					{
+						divisor++;
+					}
+				}
+				if (divisor == 8) ans++;
+			}
+			Console.WriteLine(ans);
+		}
+
+
+		public void Ac083()
+		{
+			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			int n = line[0], a = line[1], b = line[2];
+			int sum = 0;
+			for (var i = 1; i <= n; i++)
+			{
+				List<string> digits = i.ToString().ToCharArray().Select(c => c.ToString()).ToList();
+				int s = digits.Sum(c => int.Parse(c.ToString()));
+				if (a <= s && s <= b)
+				{
+					sum += i;
+				}
+			}
+			Console.WriteLine(sum);
+		}
+
         public void Ac081()
 		{
 			int n = int.Parse(Console.ReadLine());
@@ -655,6 +765,29 @@ namespace P.ABC
 			}
 			Console.WriteLine(count);
         }
+
+		public void Ac066()
+		{
+			string s = Console.ReadLine();
+			int n = s.Length;
+			int ans = 1;
+
+			for (var i = 0; i < n; i++)
+			{
+				string t = s.Substring(0, n - i - 1);
+				int slice = t.Length;
+				if (slice % 2 == 0)
+				{
+                    var (tl, tr) = (t.Substring(0, slice / 2), t.Substring(slice / 2));
+                    if (tl == tr)
+					{
+						ans = slice;
+						break;
+					}
+				}
+			}
+			Console.WriteLine(ans);
+		}
 
 		// set() → s.Distinct()
 		public void Ac063()

@@ -174,6 +174,26 @@ namespace P.JOI
 			Console.WriteLine(maxLen);
 			
 		}
+
+		// 集合（積集合）集合同士の共通要素を取り出す
+		public void Q11()
+		{
+			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			int n = line[0], m = line[1];
+			var a = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            var b = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var set = new HashSet<int>(a);
+			// 集合a, bの共通の要素を取り出す
+			set.IntersectWith(b);
+			var list = new List<int>(set);
+			list.Sort();
+			foreach (var s in list)
+			{
+				Console.WriteLine(s);
+			}
+
+			
+        }
 	}
 }
 

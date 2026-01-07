@@ -21,9 +21,9 @@ class Program
         AtCorderD acD = new AtCorderD();
 
         //acA.Ac439();
-        acB.Ac223();
+        //acB.Ac106();
         //math.Math091();
-        //joi.Q10();
+        joi.Q11();
         //acC.Ac439();
         //acD.Ac437_2();
         //Solve();
