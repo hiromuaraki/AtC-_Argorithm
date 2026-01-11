@@ -8,6 +8,17 @@ namespace P.ABC
 		{
 		}
 
+		public void Ac440()
+		{
+			int n = int.Parse(Console.ReadLine());
+			var t = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var dict = new Dictionary<int, int>();
+			var tList = new List<int>(t);
+			tList.Sort();
+			for (var i = 0; i < n; i++) dict[t[i]] = i + 1;
+			for (var i = 0; i < 3; i++) Console.WriteLine(dict[tList[i]]);
+		}
+
 		public void Ac439()
 		{
 			int n = int.Parse(Console.ReadLine());
@@ -287,6 +298,63 @@ namespace P.ABC
 			Console.WriteLine(count);
 		}
 
+		public void Ac367()
+		{
+			var c = Console.ReadLine().ToCharArray();
+			var list = new List<char>(c);
+			int idx = list.Count - 1;
+			while (list[idx] == '0')
+			{
+				list.RemoveAt(idx);
+				idx = list.Count - 1;
+			}
+
+			if (list[idx] == '.') list.RemoveAt(idx);
+			Console.WriteLine(string.Join("", list));
+		}
+
+		public void Ac363()
+		{
+			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			int n = line[0], t = line[1], p = line[2];
+			var l = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			int ans = 0;
+
+			while (true)
+			{
+				int count = 0;
+				for (var i = 0; i < n; i++)
+				{
+					if (l[i] >= t)
+					{
+						count++;
+					}
+					l[i]++;
+				}
+				if (count >= p) break;
+				ans++;
+			}
+			Console.WriteLine(ans);
+		}
+
+		public void Ac354()
+		{
+			long h = long.Parse(Console.ReadLine());
+			int c = 0;
+			int ans = 0;
+
+			for (var i = 0; i <= h; i++)
+			{
+				c += 2 << i;
+				if (c > h)
+				{
+					ans = i + 1;
+					break;
+				}
+			}
+			Console.WriteLine(ans);
+		}
+
 
 		// 2点間の最大の距離（ユークリッド距離を求める）
 		// List<(int x, int y)>でリストにタプルのように追加可能
@@ -314,6 +382,22 @@ namespace P.ABC
 					}
                 }
 				Console.WriteLine(ans);
+			}
+		}
+
+		public void Ac344()
+		{
+			var a = new List<int>();
+			while (true)
+			{
+				int n = int.Parse(Console.ReadLine());
+				a.Add(n);
+				if (n == 0) break;
+			}
+			a.Reverse();
+			for (var i = 0; i < a.Count; i++)
+			{
+				Console.WriteLine(a[i]);
 			}
 		}
 
@@ -478,6 +562,30 @@ namespace P.ABC
             Console.WriteLine(String.Join("", a));
 		}
 
+		public void Ac232()
+		{
+			string s = Console.ReadLine();
+            string t = Console.ReadLine();
+			int n = s.Length;
+			var list = new List<int>();
+
+			for (var i = 0; i < n; i++)
+			{
+				int k = (t[i] - s[i]) % 26;
+				list.Add(k);
+			}
+
+			for (var i = 0; i < n - 1; i++)
+			{
+				if (list[i] != list[i + 1])
+				{
+					Console.WriteLine("No");
+					return;
+				}
+			}
+			Console.WriteLine("Yes");
+        }
+
 		// 部分文字列：sがtに含まれるかどうかだけ見ればいい
 		public void Ac230()
 		{
@@ -540,6 +648,39 @@ namespace P.ABC
 			Console.WriteLine("No");
 		}
 
+		// 変数を削る
+		public void Ac214()
+		{
+			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			int s = line[0], t = line[1];
+			int count = 0;
+
+			for (var a = 0; a <= s; a++)
+			{
+				for (var b = 0; b <= s; b++)
+				{
+					// 条件が成立しない
+					if (a + b > s) continue;
+
+					// cの取りうる範囲であればカウント
+					if (a == 0 || b == 0)
+					{
+						count += (s - a - b + 1);
+					}
+					else
+					{
+						int cMax = Math.Min(s - a - b, t / (a * b));
+						if (cMax >= 0)
+						{
+							count += cMax + 1;
+						}
+
+					}
+				}
+			}
+			Console.WriteLine(count);
+		}
+
 		public void Ac211()
 		{
 			var s = new string[4];
@@ -547,6 +688,22 @@ namespace P.ABC
 			var st = s.Distinct().Count();
 			string ans = "Yes";
 			if (st != 4) ans = "No";
+			Console.WriteLine(ans);
+
+		}
+
+		public void Ac206()
+		{
+			int n = int.Parse(Console.ReadLine());
+			int s = 0;
+			int ans = 0;
+
+			for (var i = 1; i <= n; i++)
+			{
+				s += i;
+				ans = i;
+				if (s >= n) break;
+			}
 			Console.WriteLine(ans);
 
 		}
@@ -595,6 +752,21 @@ namespace P.ABC
 				}
 			}
 			Console.WriteLine(count);
+		}
+
+		public void Ac165()
+		{
+			// Overflow対策でlong型で対応
+			long x = long.Parse(Console.ReadLine());
+			long a = 100;
+			int year = 0;
+
+			while (a < x)
+			{
+				a += a / 100;
+				year++;
+			}
+			Console.WriteLine(year);
 		}
 
 		public void Ac143()
@@ -722,6 +894,62 @@ namespace P.ABC
 				if (divisor == 8) ans++;
 			}
 			Console.WriteLine(ans);
+		}
+
+		public void Ac105()
+		{
+			int n = int.Parse(Console.ReadLine());
+
+			while (n >= 4)
+			{
+				if (n % 4 == 0 || n % 7 == 0)
+				{
+					Console.WriteLine("Yes");
+					return;
+				}
+				n -= 4;
+			} 
+			
+			Console.WriteLine("No");
+			
+		}
+
+		public void Ac087()
+		{
+			var line = new int[4];
+			for (var i = 0; i < 4; i++) line[i] = int.Parse(Console.ReadLine());
+			int a = line[0], b = line[1], c = line[2], x = line[3];
+
+			int count = 0;
+			// 全探索：O(N^2)
+			for (var i = 0; i <= a; i++)
+			{
+				for (var j = 0; j <= b; j++)
+				{
+					int k = x - (500*i + 100*j);
+					if (0 <= k && k <= 50*c)
+					{
+						count++;
+					}
+				}
+			}
+
+			// 全探索:O(N^3)
+			for (var i = 0; i <= a; i++)
+            {
+                for (var j = 0; j <= b; j++)
+                {
+					for (var k = 0; k <= c; k++)
+					{
+						if (500*i + 100*j + 50*k == x)
+						{
+							count++;
+						}
+					}
+                    
+                }
+            }
+            Console.WriteLine(count);
 		}
 
 

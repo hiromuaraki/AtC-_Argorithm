@@ -7,6 +7,81 @@ namespace P.ABC
 		{
 		}
 
+		public void Ac440()
+		{
+            int t = int.Parse(Console.ReadLine());
+
+            while (t-- > 0)
+			{
+                var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+                int n = line[0], w = line[1];
+                var c = Console.ReadLine().Split().Select(int.Parse).ToArray();
+
+				// 周期性
+				int period = 2*w;
+				long[] sumCost = new long[period];
+
+                // 各マスiをi % 2wでグループ化
+                for (var i = 0; i < n; i++)
+				{
+					// 黒くなるのはwの連続区間
+                    sumCost[i % period] += c[i];
+				}
+
+                // 円環を直線にするため配列の長さを2倍で設定
+                long[] arr = new long[period * 2];
+				for (var i = 0; i < period; i++)
+				{
+					arr[i] = sumCost[i];
+					arr[i + period] = sumCost[i]; 
+				}
+				
+				long current = 0;
+                // 長さ w の区間和の最小値
+                for (var i = 0; i < w; i++) current += arr[i];
+
+				long ans = current;
+				for (var i = w; i < w + period; i++)
+				{
+					current += arr[i];
+					current -= arr[i - w];
+					ans = Math.Min(ans, current);
+				}
+				Console.WriteLine(ans);
+            }
+        }
+
+		// 愚直：全探索
+		// xを固定し,全(x, i）組を走査しマスを黒に塗る最小コストを求める
+		public void Ac440_2()
+		{
+			int t = int.Parse(Console.ReadLine());
+			const long INF = 1000_000_000_000_000_000;
+			
+			for (var tt = 0; tt < t; tt++)
+			{
+                var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+				var c = Console.ReadLine().Split().Select(int.Parse).ToArray();
+                int n = line[0], w = line[1];
+
+				long sumCost = INF;
+				int period = 2*w;
+				for (var x = 1; x <= period; x++)
+				{
+					int cost = 0;
+					for (var i = 0; i < n; i++)
+					{
+						if ((i + x) % period < w)
+						{
+							cost += c[i];
+						}
+					}
+					sumCost = Math.Min(sumCost, cost);
+				}
+				Console.WriteLine(sumCost);
+			}
+		}
+
 		public void Ac439()
 		{
 			int n = int.Parse(Console.ReadLine());

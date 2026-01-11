@@ -20,11 +20,11 @@ class Program
         AtCorderC acC = new AtCorderC();
         AtCorderD acD = new AtCorderD();
 
-        //acA.Ac439();
-        //acB.Ac106();
+        acA.Ac440();
+        //acB.Ac440();
         //math.Math091();
-        joi.Q11();
-        //acC.Ac439();
+        //joi.Q11();
+        //acC.Ac440();
         //acD.Ac437_2();
         //Solve();
     }

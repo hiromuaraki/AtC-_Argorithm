@@ -4,6 +4,14 @@ namespace P.ABC
 	public class AtCorderA
 	{
 
+        public void Ac440()
+        {
+            var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            var(x, y) = (line[0], line[1]);
+            // 2^yをシフト演算で計算
+            Console.WriteLine(x << y);
+        }
+
         public void Ac439()
         {
             int n = int.Parse(Console.ReadLine());
