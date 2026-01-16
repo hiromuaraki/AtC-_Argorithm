@@ -248,6 +248,20 @@ namespace P.ABC
 
 		}
 
+		// オーバーフロー対策の問題
+		public void Ac400()
+		{
+			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var (n, m) = (line[0], line[1]);
+			long x = 1;
+			const int INF = 1_000_000_000;
+			for (var i = 1; i <= m; i++)
+			{
+				x += (long)Math.Pow(n, i);
+			}
+			Console.WriteLine(Math.Abs(x) <= INF ? x : "inf");
+		}
+
 		// O(N^2)
 		// j - i = k - jはi, jが決まればkが決まる
 		// 式変形し、k = 2j - iでkが求まるためkは固定しない
@@ -298,6 +312,37 @@ namespace P.ABC
 			Console.WriteLine(count);
 		}
 
+		public void Ac380()
+		{
+			var s = Console.ReadLine().Split("|");
+			for (var i = 0; i < s.Length; i++)
+			{
+				if (string.IsNullOrEmpty(s[i])) continue;
+				Console.Write($"{s[i].Length} ")	;
+			}
+		}
+
+		public void Ac369()
+		{
+			int n = int.Parse(Console.ReadLine());
+			int[] acc = new int[2];
+			int[] hand = new int[2];
+			var idx = new Dictionary<string, int>(){["L"] = 0,["R"] = 1};
+			int dist = 0;
+			int sum = 0;
+			for (var i = 0; i < n; i++)
+			{
+				var line = Console.ReadLine().Split().ToArray();
+				var (a, s) = (int.Parse(line[0]), line[1]);
+				int move = idx[s];
+				hand[move]++;
+				dist = Math.Abs(a - acc[move]);
+				acc[move] = a;
+				if (hand[move] >= 2) sum += dist;
+			}
+			Console.WriteLine(sum);
+		}
+
 		public void Ac367()
 		{
 			var c = Console.ReadLine().ToCharArray();
@@ -335,6 +380,22 @@ namespace P.ABC
 				ans++;
 			}
 			Console.WriteLine(ans);
+		}
+
+		public void Ac358()
+		{
+			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var t = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var (n, a) = (line[0], line[1]);
+			int procTime = 0;
+
+			for (var i = 0; i < n; i++)
+			{
+				int time = t[i];
+				if (procTime <= time) procTime = time + a;
+				else procTime += a;
+				Console.WriteLine(procTime);
+			}
 		}
 
 		public void Ac354()
@@ -448,6 +509,23 @@ namespace P.ABC
 
 		}
 
+		public void Ac315()
+		{
+			int m = int.Parse(Console.ReadLine());
+			var d = Console.ReadLine().Split().Select(int.Parse).ToList();
+			int middle = (d.Sum() + 1) / 2;
+			int sum = 0;
+			int month = 0, day = 0;
+			for (var i = 0; i < m; i++)
+			{
+				month = i + 1;
+				day = middle - sum;
+				sum += d[i];
+				if (middle <= sum) break;
+			}
+			Console.WriteLine($"{month} {day}");
+		}
+
 		public void Ac308()
 		{
 				var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
@@ -522,6 +600,18 @@ namespace P.ABC
 			
  		}
 
+		// スライスの設計がめんどくさい
+		public void Ac291()
+		{
+			int n = int.Parse(Console.ReadLine());
+			var x = Console.ReadLine().Split().Select(int.Parse).ToList();
+			x.Sort();
+			var stA = x.GetRange(n, x.Count - n);
+			var stB = stA.GetRange(0, stA.Count - n);
+			int sum = stB.Sum();
+			Console.WriteLine((double)sum / ((x.Count) - 2*n));
+		}
+
 		public void Ac279()
 		{
 			string s = Console.ReadLine();
@@ -560,6 +650,32 @@ namespace P.ABC
 			// 差集合
 			a.ExceptWith(b);
             Console.WriteLine(String.Join("", a));
+		}
+
+		public void Ac244()
+		{
+			int n = int.Parse(Console.ReadLine());
+			string t = Console.ReadLine();
+			int cur = 0;
+			var move = new int[] {1, -1, -1, 1};
+			int[] x_y = new int[2]; 
+
+			foreach (var s in t)
+			{
+				int idx = cur % 2 == 0 ? 0 : 1;
+				if (s == 'S') x_y[idx] += move[cur];
+				else cur = (cur + 1) % 4;
+			}
+			Console.WriteLine(string.Join(" ", x_y));
+		}
+
+		public void Ac242()
+		{
+			var s = Console.ReadLine().ToList();
+			s.Sort();
+			Console.WriteLine(string.Join("", s));
+
+			
 		}
 
 		public void Ac232()
@@ -708,6 +824,36 @@ namespace P.ABC
 
 		}
 
+		public void Ac202()
+		{
+			int n = int.Parse(Console.ReadLine());
+			var a = Console.ReadLine().Split().Select(int.Parse).ToList();
+			var b = Enumerable.Range(1, n).ToList();
+			Console.WriteLine(a.Intersect(b).Count() == n ? "Yes" : "No");
+		}
+
+		public void Ac185()
+		{
+			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var (n, m, t) = (line[0], line[1], line[2]);
+			int pre = 0;
+			int battery = n;
+			for (var i = 0; i < m; i++)
+			{
+				var arr = Console.ReadLine().Split().Select(int.Parse).ToArray();
+				var (a, b) = (arr[0], arr[1]);
+				battery -= a - pre;
+				if (battery <= 0)
+				{
+					Console.WriteLine("No");
+					return;
+				}
+				battery = Math.Min(n, battery + (b - a));
+				pre = b;
+			}
+			Console.WriteLine(battery - (t - pre) > 0 ? "Yes" : "No");
+		}
+
 		public void Ac177()
 		{
 			string s = Console.ReadLine();
@@ -752,6 +898,15 @@ namespace P.ABC
 				}
 			}
 			Console.WriteLine(count);
+		}
+
+		public void Ac171()
+		{
+			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var p = Console.ReadLine().Split().Select(int.Parse).ToList();
+			var (n, k) = (line[0], line[1]);
+			p.Sort();
+			Console.WriteLine(p.GetRange(0, k).Sum());
 		}
 
 		public void Ac165()
@@ -914,6 +1069,20 @@ namespace P.ABC
 			
 		}
 
+		public void Ac088()
+		{
+			int n = int.Parse(Console.ReadLine());
+			var a = Console.ReadLine().Split().Select(int.Parse).ToList();
+			var b = a.OrderByDescending(x => x).ToArray();
+			int sum = 0;
+			for (var i = 0; i< n; i++)
+			{
+				if (i % 2 == 0) sum += b[i];
+				else sum -= b[i];
+			}
+			Console.WriteLine(sum);
+		}
+
 		public void Ac087()
 		{
 			var line = new int[4];
@@ -994,7 +1163,16 @@ namespace P.ABC
 			Console.WriteLine(count);
         }
 
-		public void Ac066()
+        public void Ac067()
+        {
+            var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            var l = Console.ReadLine().Split().Select(int.Parse).ToList();
+            var (n, k) = (line[0], line[1]);
+            var list = l.OrderByDescending(x => x).ToList();
+            Console.WriteLine(list.GetRange(0, k).Sum());
+        }
+
+        public void Ac066()
 		{
 			string s = Console.ReadLine();
 			int n = s.Length;
@@ -1016,6 +1194,7 @@ namespace P.ABC
 			}
 			Console.WriteLine(ans);
 		}
+
 
 		// set() → s.Distinct()
 		public void Ac063()

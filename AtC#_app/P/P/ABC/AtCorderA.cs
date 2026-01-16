@@ -1,13 +1,13 @@
 ﻿using System;
 namespace P.ABC
 {
-	public class AtCorderA
-	{
+    public class AtCorderA
+    {
 
         public void Ac440()
         {
             var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
-            var(x, y) = (line[0], line[1]);
+            var (x, y) = (line[0], line[1]);
             // 2^yをシフト演算で計算
             Console.WriteLine(x << y);
         }
@@ -17,7 +17,7 @@ namespace P.ABC
             int n = int.Parse(Console.ReadLine());
             int sq = 2;
             for (var i = 1; i < n; i++) sq *= 2;
-            Console.WriteLine(sq - 2*n);
+            Console.WriteLine(sq - 2 * n);
         }
 
         // 周期性の問題（難しい）
@@ -62,7 +62,7 @@ namespace P.ABC
         public void Ac404()
         {
             var s = Console.ReadLine().ToHashSet();
-            
+
             for (var c = 'a'; c <= 'z'; c++)
             {
                 if (!s.Contains(c))
@@ -71,7 +71,42 @@ namespace P.ABC
                     break;
                 }
             }
-            
+
+        }
+
+        // シミュレーション（状態管理の問題）
+        public void Ac383()
+        {
+            int n = int.Parse(Console.ReadLine());
+            var (water, preT) = (0, 0);
+
+            for (var i = 0; i < n; i++)
+            {
+                var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+                int t = line[0], v = line[1];
+                water = Math.Max(0, water - (t - preT));
+                water += v;
+                preT = t;
+            }
+            Console.WriteLine(water);
+        }
+
+        // シミュレーション（状態管理の問題）
+        public void Ac376()
+        {
+            var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            var t = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            var (n, c) = (line[0], line[1]);
+            int preT = 0;
+            int candy = 1;
+
+            for (var i = 0; i < n - 1; i++)
+            {
+                if (t[i + 1] - t[preT] < c) continue;
+                preT = i + 1;
+                candy++;
+            }
+            Console.WriteLine(candy);
         }
 
 
@@ -112,6 +147,18 @@ namespace P.ABC
                 M += P;
             }
             Console.WriteLine(count);
+        }
+
+        public void Ac243()
+        {
+            var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            var (v, a, b, c) = (line[0], line[1], line[2], line[3]);
+            int v2 = v % (a + b + c);
+            string ans = "";
+            if (v2 < a) ans = "F";
+            else if (v2 < a + b) ans = "M";
+            else ans = "T";
+            Console.WriteLine(ans);
         }
 
         // setを使い重複を除く
