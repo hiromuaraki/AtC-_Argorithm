@@ -7,6 +7,29 @@ namespace P.ABC
 		{
 		}
 
+		// 貪欲法（大きい方から選ぶ）
+		public void Ac441()
+		{
+			var line = Console.ReadLine().Split().Select(long.Parse).ToArray();
+			var (n, k, x) = (line[0], line[1], line[2]);
+			var a = Console.ReadLine().Split().Select(int.Parse).ToList();
+			// 最小の酒しか選べないようにする為に降順にする
+			var drink = a.OrderByDescending(x => x).ToList();
+			long sum = 0;
+			
+			for (long i = n - k; i < n; i++)
+			{
+				// 最小の酒の容量がxml以上になるかを見る
+				sum += drink[(int)i];
+				if (sum >= x)
+				{
+					Console.WriteLine(i + 1);
+					return;
+				}
+			}
+			Console.WriteLine(-1);	
+		}
+
 		public void Ac440()
 		{
             int t = int.Parse(Console.ReadLine());

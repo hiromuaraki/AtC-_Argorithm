@@ -3,6 +3,16 @@ namespace P.ABC
 {
     public class AtCorderA
     {
+        // (x,y)の行列が(p,q)の行列内に収まるか
+        public void Ac441()
+        {
+            var p_q = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            var x_y = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            var (p, q) = (p_q[0], p_q[1]);
+            var (x, y) = (x_y[0], x_y[1]);
+            if ((p <= x && x < p + 100) && (q <= y && y < q + 100)) Console.WriteLine("Yes");
+            else Console.WriteLine("No");
+        }
 
         public void Ac440()
         {

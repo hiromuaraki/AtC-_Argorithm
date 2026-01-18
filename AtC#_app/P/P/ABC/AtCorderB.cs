@@ -8,6 +8,29 @@ namespace P.ABC
 		{
 		}
 
+		// 部分集合 chars <= 集合S,Tに含まれれているか
+		public void Ac441()
+		{
+			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var (n, m) = (line[0], line[1]);
+			var s = new HashSet<char>(Console.ReadLine());
+            var t = new HashSet<char>(Console.ReadLine());
+			int q = int.Parse(Console.ReadLine());
+
+			for (var i = 0; i < q; i++)
+			{
+				var chars = new HashSet<char>(Console.ReadLine());
+				var inS = chars.IsSubsetOf(s);
+				var inT = chars.IsSubsetOf(t);
+
+				string result = "";
+				if (inS && inT) result = "Unknown";
+				else if (inS) result = "Takahashi";
+				else result = "Aoki";
+				Console.WriteLine(result);
+            }
+        }
+
 		public void Ac440()
 		{
 			int n = int.Parse(Console.ReadLine());
