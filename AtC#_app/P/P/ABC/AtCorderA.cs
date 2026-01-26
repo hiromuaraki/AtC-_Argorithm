@@ -3,6 +3,18 @@ namespace P.ABC
 {
     public class AtCorderA
     {
+        public void Ac442()
+        {
+            string s = Console.ReadLine();
+            int count = 0;
+            for (var i = 0; i < s.Length; i++)
+            {
+
+                if (s[i] == 'i' || s[i] == 'j') count++;
+            }
+            Console.WriteLine(count);
+        }
+
         // (x,y)の行列が(p,q)の行列内に収まるか
         public void Ac441()
         {
@@ -119,6 +131,24 @@ namespace P.ABC
             Console.WriteLine(candy);
         }
 
+        public void Ac354()
+        {
+            long h = long.Parse(Console.ReadLine());
+            int c = 0;
+            int ans = 0;
+
+            for (var i = 0; i <= h; i++)
+            {
+                c += 2 << i;
+                if (c > h)
+                {
+                    ans = i + 1;
+                    break;
+                }
+            }
+            Console.WriteLine(ans);
+        }
+
 
         public void Ac319()
         {
@@ -157,6 +187,25 @@ namespace P.ABC
                 M += P;
             }
             Console.WriteLine(count);
+        }
+
+        public void Ac248()
+        {
+            var s = Console.ReadLine();
+            var b = new int[10];
+            for (var i = 0; i < s.Length; i++)
+            {
+                int si = int.Parse(s[i].ToString());
+                b[si]++;
+            }
+            for (var i = 0; i < 10; i++)
+            {
+                if (b[i] == 0)
+                {
+                    Console.WriteLine(i);
+                    return;
+                }
+            }
         }
 
         public void Ac243()

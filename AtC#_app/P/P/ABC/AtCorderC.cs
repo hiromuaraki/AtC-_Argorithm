@@ -1,10 +1,33 @@
 ﻿using System;
+using System.Text;
 namespace P.ABC
 {
 	public class AtCorderC
 	{
 		public AtCorderC()
 		{
+		}
+
+		public void Ac442()
+		{
+			int[] line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var (n, m) = (line[0], line[1]);
+			int[] deg = new int[n];
+			for (var i = 0; i < m; i++)
+			{
+				int[] ab = Console.ReadLine().Split().Select(int.Parse).ToArray();
+				var (a, b) = (ab[0], ab[1]);
+				a--; b--;
+				deg[a]++;
+				deg[b]++;
+			}
+			StringBuilder sb = new StringBuilder();
+			for (var i = 0; i < n; i++)
+			{
+				long k = n - 1 - deg[i];
+				sb.Append(k * (k - 1) * (k - 2) / 6 + " ");
+			}
+			Console.WriteLine(sb);
 		}
 
 		// 貪欲法（大きい方から選ぶ）

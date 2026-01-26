@@ -8,6 +8,24 @@ namespace P.ABC
 		{
 		}
 
+		public void Ac442()
+		{
+			int q = int.Parse(Console.ReadLine());
+			bool IsPlayer = false;
+			int volume = 0;
+
+			while (q-- >= 0)
+			{
+				var a = int.Parse(Console.ReadLine());
+				if (a == 1) volume++;
+				else if (a == 2 && volume > 0) volume--;
+				else IsPlayer ^= true;
+
+				string msg = volume >= 3 && IsPlayer ? "Yes" : "No";
+				Console.WriteLine(msg);
+			}
+		}
+
 		// 部分集合 chars <= 集合S,Tに含まれれているか
 		public void Ac441()
 		{
@@ -271,6 +289,15 @@ namespace P.ABC
 
 		}
 
+		public void Ac408()
+		{
+			int n = int.Parse(Console.ReadLine());
+			var a = new HashSet<int>(Console.ReadLine().Split().Select(int.Parse).ToArray());
+			var b = a.OrderBy(x => x).ToList();
+			Console.WriteLine(b.Count);
+            Console.WriteLine(string.Join(" ", b));
+        }
+
 		// オーバーフロー対策の問題
 		public void Ac400()
 		{
@@ -335,6 +362,7 @@ namespace P.ABC
 			Console.WriteLine(count);
 		}
 
+
 		public void Ac380()
 		{
 			var s = Console.ReadLine().Split("|");
@@ -342,6 +370,28 @@ namespace P.ABC
 			{
 				if (string.IsNullOrEmpty(s[i])) continue;
 				Console.Write($"{s[i].Length} ")	;
+			}
+		}
+
+		public void Ac371()
+		{
+			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var (n, m) = (line[0], line[1]);
+			var child = new int[n];
+			for (var i = 0; i < m; i++)
+			{
+				var c = Console.ReadLine().Split();
+				int a = int.Parse(c[0]) - 1;
+				string b = c[1];
+				if (b == "M" && child[a] == 0)
+				{
+					Console.WriteLine("Yes");
+					child[a]++;
+				}
+				else
+				{
+					Console.WriteLine("No");
+				}
 			}
 		}
 
@@ -421,22 +471,56 @@ namespace P.ABC
 			}
 		}
 
-		public void Ac354()
+		public void Ac356()
 		{
-			long h = long.Parse(Console.ReadLine());
-			int c = 0;
-			int ans = 0;
+			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var (n, m) = (line[0], line[1]);
+			var a = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var x = new List<int[]>();
+			for (var i = 0; i < n; i++) x.Add(Console.ReadLine().Split().Select(int.Parse).ToArray());
 
-			for (var i = 0; i <= h; i++)
+			for (var j = 0; j < m; j++)
 			{
-				c += 2 << i;
-				if (c > h)
+				int s = 0;
+				for (var i = 0; i < n; i++)
 				{
-					ans = i + 1;
-					break;
+					s += x[i][j];
+				}
+				if (s < a[j])
+				{
+					Console.WriteLine("No");
+					return;
 				}
 			}
-			Console.WriteLine(ans);
+			Console.WriteLine("Yes");
+		}
+
+		// 辞書順の問題
+        public void Ac354()
+        {
+            int n = int.Parse(Console.ReadLine());
+            var list = new List<string>();
+            int t = 0;
+            for (var i = 0; i < n; i++)
+            {
+                var line = Console.ReadLine().Split().ToArray();
+                var (s, c) = (line[0], line[1]);
+                list.Add(s);
+                t += int.Parse(c);
+            }
+            list.Sort();
+            Console.WriteLine(list[t % n]);
+        }
+
+		public void Ac350()
+		{
+			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var t = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var (n, q) = (line[0], line[1]);
+			var dental = new int[n];
+			for (var i = 0; i < n; i++) dental[i]++;
+			for (var i = 0; i < q; i++) dental[t[i] - 1] ^= 1;
+			Console.WriteLine(dental.Sum());
 		}
 
 
@@ -469,6 +553,25 @@ namespace P.ABC
 			}
 		}
 
+		// 部分文字列の列挙
+		public void Ac347()
+		{
+			string s = Console.ReadLine();
+			int n = s.Length;
+			var st = new HashSet<string>();
+			for (var i = 0; i < n; i++)
+			{
+				string t = "";
+				for (var j = i; j < n; j++)
+				{
+					t += s[j];
+					st.Add(t);
+				}
+
+			}
+			Console.WriteLine(st.Count);
+		}
+
 		public void Ac344()
 		{
 			var a = new List<int>();
@@ -492,6 +595,31 @@ namespace P.ABC
 			s.Sort();
 			char c = s[0] == s[1] ? s[s.Count - 1] : s[0];
 			Console.WriteLine(t.IndexOf(c) + 1);
+		}
+
+		public void Ac338()
+		{
+			char[] chars = Console.ReadLine().ToArray();
+			var dict = new Dictionary<char, int>();
+			for (var i = 0; i < chars.Length; i++)
+			{
+				if (!dict.TryAdd(chars[i], 1)) dict[chars[i]]++;
+			}
+			int value = int.MinValue;
+			char ans = char.MaxValue;
+			foreach (var (k, v) in dict)
+			{
+				if (value < v)
+				{
+					value = v;
+					ans = k;
+				}
+				else if (value == v && k < ans)
+				{
+					ans = k;
+				}
+			}
+			Console.WriteLine(ans);
 		}
 
 		public void Ac326()
@@ -547,6 +675,44 @@ namespace P.ABC
 				if (middle <= sum) break;
 			}
 			Console.WriteLine($"{month} {day}");
+		}
+
+		public void Ac311()
+		{
+			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var (n, d) = (line[0], line[1]);
+			var s = new string[n];
+			bool[] free = new bool[d];
+
+			for (var i = 0; i < n; i++) s[i] = Console.ReadLine();
+			for (var j = 0; j < d; j++)
+			{
+				bool isFree = true;
+				for (var i = 0; i < n; i++)
+				{
+					if (s[i][j] == 'x')
+					{
+						isFree = false;
+						break;
+					}
+				}
+				if (isFree) free[j] = isFree;
+			}
+
+			if (free.Count(x => x == true) == 0)
+			{
+				Console.WriteLine(0);
+				return;
+			}
+
+			int ans = 1, count = 1;
+			for (var i = 0; i < d - 1; i++)
+			{
+				if (free[i] && free[i + 1]) count++;
+				else count = 1;
+				ans = Math.Max(ans, count);
+			}
+			Console.WriteLine(ans);
 		}
 
 		public void Ac308()
@@ -619,10 +785,32 @@ namespace P.ABC
 			{
 				Console.Write($"{x} ");
 			}
-
-			
  		}
 
+		public void Ac292()
+		{
+			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var (n, q) = (line[0], line[1]);
+			var player = new int[n];
+			for (var i = 0; i < q; i++)
+			{
+				var query = Console.ReadLine().Split().Select(int.Parse).ToArray();
+				var (c, x) = (query[0], query[1]);
+				x--;
+				switch (c)
+				{
+					case 1:
+						player[x]++;
+						break;
+					case 2:
+						player[x] = -1;
+						break;
+					case 3:
+						Console.WriteLine(player[x] == -1 || player[x] == 2 ? "Yes" : "No");
+						break;
+				}
+			}
+		}
 		// スライスの設計がめんどくさい
 		public void Ac291()
 		{
@@ -633,6 +821,37 @@ namespace P.ABC
 			var stB = stA.GetRange(0, stA.Count - n);
 			int sum = stB.Sum();
 			Console.WriteLine((double)sum / ((x.Count) - 2*n));
+		}
+
+		public void Ac288()
+		{
+			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var (n, k) = (line[0], line[1]);
+			var s = new List<string>();
+			for (var i = 0; i < n; i++) s.Add(Console.ReadLine());
+			var ss = s.GetRange(0, k);
+			ss.Sort();
+			for (var i = 0; i < k; i++)
+			{
+				Console.WriteLine(ss[i]);
+			}
+		}
+
+		public void Ac287()
+		{
+			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var (n, m) = (line[0], line[1]);
+			string[] s = new string[n];
+			var t = new HashSet<string>();
+			for (var i = 0; i < n; i++) s[i] = Console.ReadLine();
+			for (var i = 0; i < m; i++) t.Add(Console.ReadLine());
+			int count = 0;
+			for (var i = 0; i < n; i++)
+			{
+				string ss = s[i].Substring(6 - 3, 3);
+				if (t.Contains(ss)) count++;
+			}
+			Console.WriteLine(count);
 		}
 
 		public void Ac279()
@@ -664,6 +883,48 @@ namespace P.ABC
 			Console.WriteLine("No");
         }
 
+		public void Ac277()
+		{
+			int n = int.Parse(Console.ReadLine());
+			var t = new HashSet<string>()
+			{
+				"A", "2", "3", "4", "5", "6", "7",
+				"8", "9", "T", "J", "Q", "K"
+			};
+			int count = 0;
+			var s = new List<string>();
+			var list = new List<string>();
+			for (var i = 0; i < n; i++) s.Add(Console.ReadLine());
+			for (var i = 0; i < n; i++)
+			{
+				char[] chars = s[i].ToArray();
+				string ss = chars[0].ToString();
+				if (!(ss == "H" || ss == "D" || ss == "C" || ss == "S")) break;
+				if (!t.Contains(chars[1].ToString())) break;
+				if (list.Contains(s[i])) break;
+				list.Add(s[i]);
+				count++;
+			}
+			Console.WriteLine(count == n ? "Yes" : "No");
+		}
+
+		public void Ac274()
+		{
+			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var (h, w) = (line[0], line[1]);
+			var c = new string[h];
+			int[] cnt = new int[w];
+			for (var i = 0; i < h; i++) c[i] = Console.ReadLine();
+			for (var i = 0; i < h; i++)
+			{
+				for (var j = 0; j < w; j++)
+				{
+					if (c[i][j] == '#') cnt[j]++;
+				}
+			}
+			Console.WriteLine(string.Join(" ", cnt));
+		}
+
 		// 差集合
 		public void Ac257()
 		{
@@ -673,6 +934,21 @@ namespace P.ABC
 			// 差集合
 			a.ExceptWith(b);
             Console.WriteLine(String.Join("", a));
+		}
+
+		public void Ac245()
+		{
+			int n = int.Parse(Console.ReadLine());
+			var a = Console.ReadLine().Split().Select(int.Parse).ToHashSet();
+			var b = Enumerable.Range(0, a.Max() + 2).ToList();
+			foreach (var b_i in b)
+			{
+				if (!a.Contains(b_i))
+				{
+					Console.WriteLine(b_i);
+					return;
+				}
+			}
 		}
 
 		public void Ac244()
@@ -701,6 +977,47 @@ namespace P.ABC
 			
 		}
 
+		public void Ac241()
+		{
+			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var (n, m) = (line[0], line[1]);
+			var dict = new Dictionary<int, int>();
+			var a = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var b = Console.ReadLine().Split().Select(int.Parse).ToArray();
+
+			for (var i = 0; i < n; i++)
+			{
+				if (!dict.TryAdd(a[i], 1)) dict[a[i]]++;
+			}
+			for (var i = 0; i < m; i++)
+			{
+				// キーが存在したとき
+				if (dict.TryGetValue(b[i], out int value))
+				{
+					// すでに登場しているなら
+					if (value == 0)
+					{
+                        Console.WriteLine("No");
+                        return;
+                    }
+				}
+				else
+				{
+					Console.WriteLine("No");
+					return;
+				}
+				dict[b[i]]--;
+			}
+			Console.WriteLine("Yes");
+		}
+
+		public void Ac240()
+		{
+			int n = int.Parse(Console.ReadLine());
+			var a = new HashSet<int>(Console.ReadLine().Split().Select(int.Parse).ToArray());
+			Console.WriteLine(a.Count);
+		}
+
 		public void Ac232()
 		{
 			string s = Console.ReadLine();
@@ -724,6 +1041,29 @@ namespace P.ABC
 			}
 			Console.WriteLine("Yes");
         }
+
+		public void Ac231()
+		{
+			int n = int.Parse(Console.ReadLine());
+			var dict = new Dictionary<string, int>();
+			for (var i = 0; i < n; i++)
+			{
+				string key = Console.ReadLine();
+				if (!dict.TryAdd(key, 1)) dict[key]++;
+			}
+
+			int max = 0;
+			string ans = "";
+			foreach (var (k, v) in dict)
+			{
+				if (max < v)
+				{
+					max = v;
+					ans = k;
+				}
+			}
+			Console.WriteLine(ans);
+		}
 
 		// 部分文字列：sがtに含まれるかどうかだけ見ればいい
 		public void Ac230()
@@ -932,6 +1272,24 @@ namespace P.ABC
 			Console.WriteLine(p.GetRange(0, k).Sum());
 		}
 
+		public void Ac166()
+		{
+			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var (n, k) = (line[0], line[1]);
+			int[] cnt = new int[n];
+
+			for (var i = 0; i < k; i++)
+			{
+				int d = int.Parse(Console.ReadLine());
+				var a = Console.ReadLine().Split().Select(int.Parse).ToArray();
+				for (var j = 0; j < d; j++)
+				{
+					cnt[a[j] - 1]++;
+				}
+			}
+			Console.WriteLine(cnt.Count(x => x == 0));
+		}
+
 		public void Ac165()
 		{
 			// Overflow対策でlong型で対応
@@ -1025,6 +1383,38 @@ namespace P.ABC
 			Console.WriteLine(count);
 		}
 
+		public void Ac118()
+		{
+			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var (n, m) = (line[0], line[1]);
+			int[] k = new int[m];
+			for (var i = 0; i < n; i++)
+			{
+				var a = Console.ReadLine().Split().Select(int.Parse).ToArray();
+				int t = a[0];
+				for (var j = 1; j <= t; j++)
+				{
+					k[a[j] - 1]++;
+				}
+			}
+			Console.WriteLine(k.Count(x => x == n));
+		}
+
+		public void Ac116()
+		{
+			int s = int.Parse(Console.ReadLine());
+			var st = new HashSet<int>();
+			st.Add(s);
+			while (true)
+			{
+				if (s % 2 == 0) s /= 2;
+				else s = 3 * s + 1;
+				if (st.Contains(s)) break;
+				st.Add(s);
+			}
+			Console.WriteLine(st.Count + 1);
+		}
+
 		public void Ac109()
 		{
 			var wList = new List<string>();
@@ -1092,6 +1482,29 @@ namespace P.ABC
 			
 		}
 
+		// 辞書から最大値を取得
+		public void Ac091()
+		{
+			int n = int.Parse(Console.ReadLine());
+			var dict = new Dictionary<string, int>();
+			for (var i = 0; i < n; i++)
+			{
+				string s = Console.ReadLine();
+				if (!dict.TryAdd(s, 1))
+				{
+					dict[s]++;
+				}
+			}
+
+			int m = int.Parse(Console.ReadLine());
+			for (var i = 0; i < m; i++)
+			{
+				string t = Console.ReadLine();
+				if (dict.ContainsKey(t)) dict[t]--;
+			}
+			Console.WriteLine(Math.Max(dict.Values.Max(), 0));
+		}
+
 		public void Ac088()
 		{
 			int n = int.Parse(Console.ReadLine());
@@ -1144,6 +1557,13 @@ namespace P.ABC
             Console.WriteLine(count);
 		}
 
+		public void Ac085()
+		{
+			int n = int.Parse(Console.ReadLine());
+			var st = new HashSet<string>();
+			for (var i = 0; i < n; i++) st.Add(Console.ReadLine());
+			Console.WriteLine(st.Count);
+		}
 
 		public void Ac083()
 		{
@@ -1160,6 +1580,17 @@ namespace P.ABC
 				}
 			}
 			Console.WriteLine(sum);
+		}
+
+		// 文字列の辞書順の比較
+		// C#では文字列で比較演算子は使えないため、string.Compareで比較する
+		public void Ac082()
+		{
+			var s = Console.ReadLine().OrderBy(c => c);
+            var t = Console.ReadLine().OrderByDescending(x => x);
+			string ss = string.Join("", s);
+			string ts = string.Join("", t);
+			Console.WriteLine(string.Compare(ss, ts) < 0 ? "Yes" : "No");
 		}
 
         public void Ac081()
@@ -1185,6 +1616,16 @@ namespace P.ABC
 			}
 			Console.WriteLine(count);
         }
+
+		// 差集合
+		public void Ac071()
+		{
+			var s = new HashSet<char>(Console.ReadLine().ToArray());
+			var t = new HashSet<char>();
+			for (var i = 'a'; i <= 'z'; i++) t.Add(i);
+			t.ExceptWith(s);
+			Console.WriteLine(t.Count != 0 ? t.Min() : "None");
+		}
 
         public void Ac067()
         {
@@ -1245,6 +1686,25 @@ namespace P.ABC
  			}
 		}
 
+		public void Ac044()
+		{
+			string w = Console.ReadLine();
+			var dict = new Dictionary<string, int>();
+			for (var i = 0; i < w.Length; i++)
+			{
+				string key = w[i].ToString();
+				if (!dict.TryAdd(key, 1)) dict[key]++;
+			}
+			foreach (var (k, v) in dict)
+			{
+				if (v % 2 != 0)
+				{
+					Console.WriteLine("No");
+					return;
+				}
+			}
+			Console.WriteLine("Yes");
+		}
 		
 	}
 }

@@ -194,6 +194,47 @@ namespace P.JOI
 
 			
         }
+
+		public void Q12()
+		{
+			int n = int.Parse(Console.ReadLine());
+			var a = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			int m = int.Parse(Console.ReadLine());
+            var b = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			int score = 0;
+			for (var i = 0; i < n; i++)
+			{
+				score += a[i];
+				score = !b.Contains(score) ? score : 0;
+			}
+			Console.WriteLine(score);
+        }
+
+		public void Q13()
+		{
+			int n = int.Parse(Console.ReadLine());
+			var a = Console.ReadLine().Trim().Split().Select(int.Parse).ToArray();
+			var counter = new Dictionary<int, int>();
+			int value = int.MaxValue;
+			int ans = int.MaxValue;
+			for (var i = 0; i < n; i++)
+			{
+				if (!counter.TryAdd(a[i], 1))
+				{
+					counter[a[i]]++;
+				}
+			}
+
+			foreach (var (key, cnt) in counter)
+			{
+				if (cnt < value || (cnt == value && key < ans))
+				{
+					value = cnt;
+					ans = key;
+				}
+			}
+			Console.WriteLine(ans);
+		}
 	}
 }
 
