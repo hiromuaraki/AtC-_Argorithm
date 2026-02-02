@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using P.Argorithm;
 namespace P.ABC
 {
@@ -6,6 +7,19 @@ namespace P.ABC
 	{
 		public AtCorderB()
 		{
+		}
+
+		public void Ac443()
+		{
+			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var (n, k) = (line[0], line[1]);
+			int year = 0, count = 0;
+			while (count < k)
+			{
+				count += n + year;
+				year++;
+			}
+			Console.WriteLine(year - 1);
 		}
 
 		public void Ac442()
@@ -298,6 +312,24 @@ namespace P.ABC
             Console.WriteLine(string.Join(" ", b));
         }
 
+		public void Ac407()
+		{
+			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var (x, y) = (line[0], line[1]);
+			int count = 0;
+			for (var a = 1; a < 7; a++)
+			{
+				for (var b = 1; b < 7; b++)
+				{
+					if (a + b >= x || Math.Abs(a - b) >= y)
+					{
+						count++;
+					}
+				}
+			}
+            Console.WriteLine((double)count / 36);
+		}
+
 		// オーバーフロー対策の問題
 		public void Ac400()
 		{
@@ -373,6 +405,26 @@ namespace P.ABC
 			}
 		}
 
+		public void Ac377()
+		{
+			var s = new List<char[]>();
+			for (var i = 0; i < 8; i++) s.Add(Console.ReadLine().ToArray());
+			var tate = new HashSet<int>();
+            var yoko = new HashSet<int>();
+			for (var i = 0; i < 8; i++)
+			{
+				for (var j = 0; j < 8; j++)
+				{
+					if (s[i][j] == '#')
+					{
+						tate.Add(i);
+						yoko.Add(j);
+					}
+				}
+			}
+			Console.WriteLine((8 - tate.Distinct().Count()) * (8 - yoko.Distinct().Count()));
+        }
+
 		public void Ac371()
 		{
 			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
@@ -429,6 +481,37 @@ namespace P.ABC
 
 			if (list[idx] == '.') list.RemoveAt(idx);
 			Console.WriteLine(string.Join("", list));
+		}
+
+		public void Ac364()
+		{
+			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var (h, w) = (line[0], line[1]);
+			var xy = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var (si, sj) = (xy[0], xy[1]);
+			var c = new string[h];
+			for (var i = 0; i < h; i++) c[i] = Console.ReadLine();
+			// 上下左右
+			var d = new Dictionary<char, (int, int)>()
+			{
+				['U'] = (-1, 0),
+                ['D'] = (1, 0),
+                ['L'] = (0, -1),
+                ['R'] = (0, 1),
+            };
+			var x = Console.ReadLine();
+			si--; sj--;
+			for (var i = 0; i < x.Length; i++)
+			{
+				var (di, dj) = d[x[i]];
+				int ni = si + di, nj = sj + dj;
+				if (0 <= ni && ni < h && 0 <= nj && nj < w && c[ni][nj] == '.')
+				{
+					si = ni;
+					sj = nj;	
+				}
+			}
+			Console.WriteLine($"{si + 1} {sj + 1}");
 		}
 
 		public void Ac363()
@@ -622,6 +705,43 @@ namespace P.ABC
 			Console.WriteLine(ans);
 		}
 
+		public void Ac336()
+		{
+			int s = int.Parse(Console.ReadLine());
+			char[] bin = Convert.ToString(s, 2).Reverse().ToArray();
+			int ans = 0;
+			for (var i = 0; i < bin.Length; i++)
+			{
+				if (bin[i] != '0') break;
+				ans++;
+			}
+			Console.WriteLine(ans);
+		}
+
+		public void Ac333()
+		{
+			var s = Console.ReadLine();
+            var t = Console.ReadLine();
+			var p = new Dictionary<char, int>()
+			{
+				['A'] = 0,
+                ['B'] = 1,
+                ['C'] = 2,
+                ['D'] = 3,
+                ['E'] = 4
+            };
+
+			Argorithm.Argorithm algo = new Argorithm.Argorithm();
+			if (algo.Pentagon(p[s[0]], p[s[1]]) == algo.Pentagon(p[t[0]], p[t[1]]))
+			{
+				Console.WriteLine("Yes");
+			}
+			else
+			{
+				Console.WriteLine("No");
+			}
+        }
+
 		public void Ac326()
 		{
 			int n = int.Parse(Console.ReadLine());
@@ -637,6 +757,17 @@ namespace P.ABC
                 c = int.Parse(k[2].ToString());
             }
 			Console.WriteLine(a*100 + b*10 + c);
+		}
+
+		public void Ac324()
+		{
+			long n = long.Parse(Console.ReadLine());
+			while (n % 2 == 0) n /= 2;
+			while (n % 3 == 0) n /= 3;
+			string ans = "";
+			if (n >= 2) ans = "No";
+			else ans = "Yes";
+			Console.WriteLine(ans);
 		}
 
 		// 部分文字列＋回文（文字列の切り取りの範囲設計）
@@ -658,6 +789,34 @@ namespace P.ABC
 			}
 			Console.WriteLine(ans);
 
+		}
+
+		public void Ac318()
+		{
+			int n = int.Parse(Console.ReadLine());
+			var covered = new bool[101, 101];
+			for (var i = 0; i < n; i++)
+			{
+				var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+				var (a, b, c, d) = (line[0], line[1], line[2], line[3]);
+				for (var x = a; x < b; x++)
+				{
+					for (var y = c; y < d; y++)
+					{
+						covered[x, y] = true;
+					}
+				}
+			}
+
+			int count = 0;
+			for (var i = 0; i < 101; i++)
+			{
+				for (var j = 0; j < 101; j++)
+				{
+					if (covered[i, j]) count++;
+				}
+			}
+			Console.WriteLine(count);
 		}
 
 		public void Ac315()
@@ -765,6 +924,14 @@ namespace P.ABC
 			Console.WriteLine("No");
 		}
 
+		public void Ac306()
+		{
+			var a = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			ulong sum = 0;
+			for (var i = 0; i < 64; i++) sum += ((ulong)a[i]) << i;
+			Console.WriteLine(sum);
+		}
+
 		public void Ac301()
 		{
 			int n = int.Parse(Console.ReadLine());
@@ -854,6 +1021,48 @@ namespace P.ABC
 			Console.WriteLine(count);
 		}
 
+		public void Ac282()
+		{
+			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var (n, m) = (line[0], line[1]);
+			var s = new List<char[]>();
+			for (var i = 0; i < n; i++) s.Add(Console.ReadLine().ToArray());
+
+			int ans = 0;
+			for (var i = 0; i < n; i++)
+			{
+				for (var j = i + 1; j < n; j++)
+				{
+					bool isOk = true;
+					for (var k = 0; k < m; k++)
+					{
+						if (s[i][k] == 'x' && s[j][k] == 'x')
+						{
+							isOk = false;
+							break;
+						}
+					}
+					if (isOk) ans++;
+				}
+			}
+			Console.WriteLine(ans);
+		}
+
+		public void Ac280()
+		{
+			int n = int.Parse(Console.ReadLine());
+			var a = Console.ReadLine().Split().Select(long.Parse).ToArray();
+			var s = new long[n];
+			long sum = 0;
+			for (var i = 0; i < n; i++)
+			{
+				s[i] = a[i] - sum;
+				sum += s[i];
+			}
+
+			Console.WriteLine(string.Join(" ", s));
+		}
+
 		public void Ac279()
 		{
 			string s = Console.ReadLine();
@@ -923,6 +1132,67 @@ namespace P.ABC
 				}
 			}
 			Console.WriteLine(string.Join(" ", cnt));
+		}
+
+		public void Ac270()
+		{
+			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var (x, y, z) = (line[0], line[1], line[2]);
+
+			if (y < 0)
+			{
+				x = -x;
+				y = -y;
+				z = -z;
+			}
+			int ans = 0;
+			if (x < y)
+			{
+				ans = Math.Abs(x);
+			}
+			else
+			{
+				if (z > y)
+				{
+					ans = -1;
+				}
+				else
+				{
+					ans = Math.Abs(z) + Math.Abs(x - z);
+				}
+			}
+			Console.WriteLine(ans);
+		}
+
+		// 偶奇に着目（中心点（8,8）からのチェビシェフ距離を計算）
+		public void Ac264()
+		{
+			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var (r, c) = (line[0], line[1]);
+			int dist = Math.Max(Math.Abs(r - 8), Math.Abs(c - 8));
+			Console.WriteLine(dist % 2 == 0 ? "white" : "black");
+		}
+
+		public void Ac261()
+		{
+			int n = int.Parse(Console.ReadLine());
+			var a = new List<char[]>();
+			for (var i = 0; i < n; i++) a.Add(Console.ReadLine().ToArray());
+			var target = new string[] { "WL", "LW", "DD" };
+			for (var i = 0; i < n; i++)
+			{
+				for (var j = 0; j < n; j++)
+				{
+					if (i == j) continue;
+					var s = a[i][j] + a[j][i].ToString();
+					if (!target.Contains(s))
+					{
+						Console.WriteLine("incorrect");
+						return;
+					}
+				}
+			}
+			Console.WriteLine("correct");
 		}
 
 		// 差集合
@@ -1018,6 +1288,24 @@ namespace P.ABC
 			Console.WriteLine(a.Count);
 		}
 
+		// 文字列連結はTLEのためStringBuilderで高速化
+		public void Ac237()
+		{
+			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var (h, w) = (line[0], line[1]);
+			var a = new List<int[]>();
+			for (var i = 0; i < h; i++) a.Add(Console.ReadLine().Split().Select(int.Parse).ToArray());
+			for (var j = 0; j < w; j++)
+			{
+				StringBuilder sb = new StringBuilder();
+				for (var i = 0; i < h; i++)
+				{
+					sb.Append(a[i][j] + " ");
+				}
+				Console.WriteLine(sb);
+			}
+		}
+
 		public void Ac232()
 		{
 			string s = Console.ReadLine();
@@ -1073,6 +1361,26 @@ namespace P.ABC
 			for (var i = 0; i < 10; i++) t += "oxx";
 			Console.WriteLine(t.Contains(s) ? "Yes" : "No");
 		}
+
+		public void Ac224()
+		{
+			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var (h, w) = (line[0], line[1]);
+			var a = new List<int[]>();
+			for (var i = 0; i < h; i++) a.Add(Console.ReadLine().Split().Select(int.Parse).ToArray());
+			for (var i = 0; i < h - 1; i++)
+			{
+				for (var j = 0; j < w - 1; j++)
+				{
+					if (a[i][j] + a[i + 1][j + 1] > a[i][j + 1] + a[i + 1][j])
+					{
+						Console.WriteLine("No");
+						return;
+					}
+				}
+			}
+			Console.WriteLine("Yes");
+        }
 
 		public void Ac223()
 		{
@@ -1193,6 +1501,30 @@ namespace P.ABC
 			var a = Console.ReadLine().Split().Select(int.Parse).ToList();
 			var b = Enumerable.Range(1, n).ToList();
 			Console.WriteLine(a.Intersect(b).Count() == n ? "Yes" : "No");
+		}
+
+		public void Ac197()
+		{
+			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var (h, w, x, y) = (line[0], line[1], line[2], line[3]);
+			var s = new string[h];
+			for (var i = 0; i < h; i++) s[i] = Console.ReadLine();
+			int[] dy = { -1, 1, 0, 0 };
+            int[] dx = { 0, 0, -1, 1 };
+
+			x--; y--;
+			int count = 1;
+			for (var i = 0; i < 4; i++)
+			{
+				int ni = x + dy[i], nj = y + dx[i];
+				while ((0 <= ni && ni < h) && (0 <= nj && nj < w) && s[ni][nj] != '#')
+				{
+					count++;
+					ni += dy[i];
+					nj += dx[i];
+				}
+			}
+			Console.WriteLine(count);
 		}
 
 		public void Ac185()
@@ -1615,6 +1947,38 @@ namespace P.ABC
 				count++;
 			}
 			Console.WriteLine(count);
+        }
+
+		// 深いコピー
+		public void Ac075()
+		{
+			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var (h, w) = (line[0], line[1]);
+			var s = new char[h][];
+			for (var i = 0; i < h; i++) s[i] = Console.ReadLine().ToCharArray();
+			int[] di = { -1, 1, 0, 0, -1, 1, 1, -1 };
+            int[] dj = { 0, 0, -1, 1, 1, 1, -1, -1 };
+            var c = s.Select(row => row.ToArray()).ToArray();
+
+            for (var i = 0; i < h; i++)
+			{
+				for (var j = 0; j < w; j++)
+				{
+					int count = 0;
+					for (var k = 0; k < 8; k++)
+					{
+						int ni = i + di[k], nj = j + dj[k];
+						if ((0 <= ni && ni < h) && (0 <= nj && nj < w) && s[ni][nj] == '#')
+						{
+							count++;
+						}
+					}
+					if (c[i][j] != '#')
+						// 数値に変換
+						c[i][j] = (char)('0' + count);
+				}
+				Console.WriteLine(new string(c[i]));
+			}
         }
 
 		// 差集合

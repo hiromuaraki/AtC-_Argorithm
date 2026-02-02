@@ -3,6 +3,12 @@ namespace P.ABC
 {
     public class AtCorderA
     {
+        public void Ac443()
+        {
+            string s = Console.ReadLine();
+            Console.WriteLine(s + "s");
+        }
+
         public void Ac442()
         {
             string s = Console.ReadLine();
@@ -96,6 +102,24 @@ namespace P.ABC
 
         }
 
+        public void Ac428()
+        {
+            var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            var (s, a, b, x) = (line[0], line[1], line[2], line[3]);
+            Console.WriteLine(s * a * (x / (a + b)) + Math.Min(a, x % (a + b)) * s);
+
+            int ans = 0;
+            for (var time = 0; time < x; time++)
+            {
+                if (time % (a + b) < a)
+                {
+                    ans += s;
+                }
+            }
+            Console.WriteLine(ans);
+        }
+
+
         // シミュレーション（状態管理の問題）
         public void Ac383()
         {
@@ -131,6 +155,47 @@ namespace P.ABC
             Console.WriteLine(candy);
         }
 
+        public void Ac371()
+        {
+            var line = Console.ReadLine().Split();
+            var (ab, ac, bc) = (line[0], line[1], line[2]);
+            string ans = "";
+            if (ab != ac) ans = "A";
+            else if (ab == ac && ab == bc && ac == bc) ans = "B";
+            else ans = "C";
+            Console.WriteLine(ans);
+        }
+
+        public void Ac369()
+        {
+            var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            var (a, b) = (line[0], line[1]);
+            int ans = 0;
+            if (a == b) ans = 1;
+            else if ((a + b) % 2 == 0) ans = 3;
+            else ans = 2;
+            Console.WriteLine(ans);
+        }
+
+        public void Ac367()
+        {
+            var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            var (a, b, c) = (line[0], line[1], line[2]);
+            string msg = "";
+            if (b < c)
+            {
+                if (c < a || a < b) msg = "Yes";
+                else msg = "No";
+            }
+            else
+            {
+                if (c < a && a < b) msg = "Yes";
+                else msg = "No";
+            }
+            Console.WriteLine(msg);
+        }
+        
+
         public void Ac354()
         {
             long h = long.Parse(Console.ReadLine());
@@ -149,6 +214,19 @@ namespace P.ABC
             Console.WriteLine(ans);
         }
 
+        public void Ac349()
+        {
+            int n = int.Parse(Console.ReadLine());
+            var a = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            Console.WriteLine(-a.Sum());
+        }
+
+        // 切り上げ処理：(a + b - 1) / b
+        public void Ac345()
+        {
+            long x = long.Parse(Console.ReadLine());
+            Console.WriteLine(x >= 0 ? (x + 10 - 1) / 10 : x / 10);
+        }
 
         public void Ac319()
         {
@@ -187,6 +265,42 @@ namespace P.ABC
                 M += P;
             }
             Console.WriteLine(count);
+        }
+
+        public void Ac270()
+        {
+            var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            var (a, b) = (line[0], line[1]);
+            Console.WriteLine(a | b);
+        }
+
+        public void Ac259()
+        {
+            var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            int n = line[0];
+            int m = line[1];
+            int x = line[2];
+            int t = line[3];
+            int d = line[4];
+            int ans = 0;
+            if (m >= x) ans = t;
+            else ans = t - (x - m) * d;
+            Console.WriteLine(ans);
+        }
+
+        public void Ac250()
+        {
+            var line1 = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            var line2 = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            var (h, w) = (line1[0], line1[1]);
+            var (r, c) = (line2[0], line2[1]);
+            int ans = 0;
+            r--; c--;
+            if (r - 1 >= 0) ans++;
+            if (r + 1 < h) ans++;
+            if (c - 1 >= 0) ans++;
+            if (c + 1 < w) ans++;
+            Console.WriteLine(ans);
         }
 
         public void Ac248()
@@ -229,6 +343,13 @@ namespace P.ABC
             if (st == 3) ans = 6;
             else if (st == 2) ans = 3;
             Console.WriteLine(ans);
+        }
+
+        public void Ac213()
+        {
+            var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            var (a, b) = (line[0], line[1]);
+            Console.WriteLine(a ^ b);
         }
 
         public void Ac100()

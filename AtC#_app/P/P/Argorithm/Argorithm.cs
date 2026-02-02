@@ -9,8 +9,15 @@ namespace P.Argorithm
 		{
 		}
 
-		// リストを横一列に列挙
-		public void Print<T>(List<T> list)
+        // 正五角形の線分の長さの判定用関数
+        public int Pentagon(int x, int y)
+        {
+            int d = Math.Abs(x - y);
+            return Math.Min(d, 5 - d);
+        }
+
+        // リストを横一列に列挙
+        public void Print<T>(List<T> list)
 		{
 			foreach (var v in list)
 			{

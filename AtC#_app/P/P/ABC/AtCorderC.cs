@@ -8,6 +8,33 @@ namespace P.ABC
 		{
 		}
 
+		public void Ac443()
+		{
+			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var (n, t) = (line[0], line[1]);
+			if (n == 0)
+			{
+				Console.WriteLine(t);
+				return;
+			}
+			var a = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			int cur = 0, ans = 0;
+			
+			for (var i = 0; i < n; i++)
+			{
+				if (cur <= a[i])
+				{
+					ans += a[i] - cur;
+					cur = a[i] + 100;
+				}
+			}
+			if (cur < t)
+			{
+				ans += t - cur;
+			}
+			Console.WriteLine(ans);
+		}
+
 		public void Ac442()
 		{
 			int[] line = Console.ReadLine().Split().Select(int.Parse).ToArray();

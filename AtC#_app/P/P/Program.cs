@@ -16,14 +16,16 @@ class Program
         AtCorderA acA = new AtCorderA();
         JOI.Joi joi = new JOI.Joi();
         MATH.MathAlgo math = new MATH.MathAlgo();
+        PG鉄則.ProgramingTessoku pg = new PG鉄則.ProgramingTessoku();
         AtCorderB acB = new AtCorderB();
         AtCorderC acC = new AtCorderC();
         AtCorderD acD = new AtCorderD();
-        //acA.Ac442();
-        acB.Ac311();
-        //math.Math091();
+        acA.Ac250();
+        //acB.Ac264();
+        //pg.Q2();
+        //math.Math_091();
         //joi.Q13();
-        //acC.Ac442();
+        //acC.Ac443();
         //acD.Ac437_2();
         //Solve();
     }
