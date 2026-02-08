@@ -3,6 +3,12 @@ namespace P.ABC
 {
     public class AtCorderA
     {
+        public void Ac444()
+        {
+            var s = Console.ReadLine();
+            Console.WriteLine(s.Distinct().Count() == 1 ? "Yes" : "No");
+        }
+
         public void Ac443()
         {
             string s = Console.ReadLine();
@@ -300,6 +306,44 @@ namespace P.ABC
             if (r + 1 < h) ans++;
             if (c - 1 >= 0) ans++;
             if (c + 1 < w) ans++;
+            Console.WriteLine(ans);
+        }
+
+        public void Ac249()
+        {
+            var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            int a = line[0], b = line[1], c = line[2];
+            int d = line[3], e = line[4], f = line[5];
+            int x = line[6];
+            
+            Argorithm.Argorithm algo = new Argorithm.Argorithm();
+            int taka = algo.Cycle(x, a, c, b);
+            int aoki = algo.Cycle(x, d, f, e);
+            string ans = "";
+
+            if (taka == aoki) ans = "Draw";
+            else if (taka > aoki) ans = "Takahashi";
+            else ans = "Aoki";
+            Console.WriteLine(ans);
+        }
+
+        // シミュレーション
+        public void Ac249_2()
+        {
+            var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            int a = line[0], b = line[1], c = line[2];
+            int d = line[3], e = line[4], f = line[5];
+            int x = line[6];
+            int taka = 0, aoki = 0;
+            for (var k = 0; k < x; k++)
+            {
+                if (k % (a + c) < a) taka += b;
+                if (k % (d + f) < d) aoki += e;
+            }
+            string ans = "";
+            if (taka == aoki) ans = "Draw";
+            else if (taka > aoki) ans = "Takahashi";
+            else ans = "Aoki";
             Console.WriteLine(ans);
         }
 

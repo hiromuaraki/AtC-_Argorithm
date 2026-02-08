@@ -9,6 +9,15 @@ namespace P.Argorithm
 		{
 		}
 
+		// 周期の距離を求める関数
+		public int Cycle(int x, int a, int b, int s)
+		{
+            int cycle = x / (a + b);
+            int r = x % (a + b);
+			if (r <= a) return (a * cycle + r) * s;
+			else return (a * cycle + a) * s;
+		}
+
         // 正五角形の線分の長さの判定用関数
         public int Pentagon(int x, int y)
         {
@@ -232,15 +241,15 @@ namespace P.Argorithm
 
         // 常にokが探索結果
         // 二分探索で最小のOK（インデックス）を探す
-        public int BinarySearchMin(int left, int right, int n)
+        public int LowerBound(int[] a, int n)
         {
-            int ok = right; // OK（条件を満たす）
-            int ng = left;  // NG（条件を満たさない）
+            int ok = a.Length; // OK（条件を満たす）
+            int ng = -1;  // NG（条件を満たさない）
 
             while (Math.Abs(ok - ng) > 1)
             {
                 int mid = (ok + ng) / 2;
-                if (IsOk(mid, n))
+                if (a[mid] >= n)
                     ok = mid;
                 else
                     ng = mid;
@@ -248,25 +257,24 @@ namespace P.Argorithm
             return ok;
         }
 
-
-        // 二分探索（単調性がある場合）
         // 常にokが探索結果
-        // 二分探索で最大のOK（インデックス）を探す
-        public int BinarySearchMax(int left, int right, int n)
+        // 二分探索で最小のOK（インデックス）を探す
+        public int UpperBound(int[] a, int n)
         {
-            int ok = left;  // OK
-            int ng = right; // NG
+            int ok = a.Length; // OK（条件を満たす）
+            int ng = -1;  // NG（条件を満たさない）
 
             while (Math.Abs(ok - ng) > 1)
             {
                 int mid = (ok + ng) / 2;
-                if (IsOk(mid, n))
+                if (a[mid] > n)
                     ok = mid;
                 else
                     ng = mid;
             }
             return ok;
         }
+
 
         // n頂点／m本の辺
         // グラフ：隣接リストの作成（無向グラフ）

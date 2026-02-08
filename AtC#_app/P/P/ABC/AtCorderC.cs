@@ -8,6 +8,70 @@ namespace P.ABC
 		{
 		}
 
+		public bool CanMake(long l, long[] a)
+		{
+			var cnt = a.GroupBy(x => x).ToDictionary(g => g.Key, g => g.Count());
+
+			if (cnt.ContainsKey(l))
+			{
+                cnt.Remove(l);
+			}
+
+			foreach (var x in cnt.Keys)
+			{
+				if (cnt[x] == 0) continue;
+				long y = l - x;
+
+				if (!cnt.ContainsKey(y)) return false;
+				if (x == y)
+				{
+					if (cnt[x] % 2 != 0)
+					{
+						return false;
+					}
+                    cnt[x] = 0;
+				}
+				else
+				{
+					if (cnt[x] != cnt[y])
+					{
+						return false;
+					}
+                    cnt[x] = 0;
+                    cnt[y] = 0;
+                }
+
+			}
+			return true;
+		}
+
+		public void Ac444()
+		{
+			int n = int.Parse(Console.ReadLine());
+			var a = Console.ReadLine().Split().Select(long.Parse).ToArray();
+			Array.Sort(a);
+
+			var candidates = new HashSet<long>();
+            candidates.Add(a[a.Length - 1]);
+
+			if (n >= 2)
+			{
+				candidates.Add(a[a.Length - 1] + a[0]);
+			}
+
+			StringBuilder sb = new StringBuilder();
+			var candidate = candidates.ToList();
+			candidate.Sort();
+			for (var i = 0; i < candidates.Count; i++)
+			{
+				if (CanMake(candidate[i], a))
+				{
+					sb.Append(candidate[i] + " ");
+				}
+			}
+			Console.WriteLine(sb);
+		}
+
 		public void Ac443()
 		{
 			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();

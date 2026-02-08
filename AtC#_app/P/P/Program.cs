@@ -17,15 +17,17 @@ class Program
         JOI.Joi joi = new JOI.Joi();
         MATH.MathAlgo math = new MATH.MathAlgo();
         PG鉄則.ProgramingTessoku pg = new PG鉄則.ProgramingTessoku();
+        アルゴ式.中級.計算量の工夫.Calculation calc = new アルゴ式.中級.計算量の工夫.Calculation();
         AtCorderB acB = new AtCorderB();
         AtCorderC acC = new AtCorderC();
         AtCorderD acD = new AtCorderD();
-        acA.Ac250();
-        //acB.Ac264();
+        //acA.Ac444();
+        //acB.Ac444();
         //pg.Q2();
+        //calc.Q10();
         //math.Math_091();
         //joi.Q13();
-        //acC.Ac443();
+        acC.Ac444();
         //acD.Ac437_2();
         //Solve();
     }

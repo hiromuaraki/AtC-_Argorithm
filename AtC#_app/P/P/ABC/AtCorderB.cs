@@ -9,6 +9,21 @@ namespace P.ABC
 		{
 		}
 
+		public void Ac444()
+		{
+			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
+			var (n, k) = (line[0], line[1]);
+			int count = 0;
+			string s = "";
+			for (var i = 1; i <= n; i++)
+			{
+				s = i.ToString();
+				var sum = s.Sum(x => int.Parse(x.ToString()));
+				if (sum == k) count++;
+			}
+			Console.WriteLine(count);
+		}
+
 		public void Ac443()
 		{
 			var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
