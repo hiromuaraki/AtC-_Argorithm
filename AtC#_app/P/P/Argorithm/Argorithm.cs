@@ -25,6 +25,23 @@ namespace P.Argorithm
             return Math.Min(d, 5 - d);
         }
 
+		// B進数のハッシュ値を求める
+		public List<long> HashWord(string[] words, int B, int M)
+		{
+			var result = new List<long>();
+			foreach (var word in words)
+			{
+				long h = 0;
+				foreach (var ch in word)
+				{
+					h = (h * B + (ch - 'a' + 1)) % M;
+				}
+				result.Add(h);
+			}
+			
+			return result;
+		}
+
         // リストを横一列に列挙
         public void Print<T>(List<T> list)
 		{

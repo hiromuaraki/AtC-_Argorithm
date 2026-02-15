@@ -18,28 +18,35 @@ class Program
         MATH.MathAlgo math = new MATH.MathAlgo();
         PG鉄則.ProgramingTessoku pg = new PG鉄則.ProgramingTessoku();
         アルゴ式.中級.計算量の工夫.Calculation calc = new アルゴ式.中級.計算量の工夫.Calculation();
+        アルゴ式.中級.二分探索.BinarySearch2 binary = new アルゴ式.中級.二分探索.BinarySearch2();
+        アルゴ式.中級.データ構造.DataStruct data = new アルゴ式.中級.データ構造.DataStruct();
         AtCorderB acB = new AtCorderB();
         AtCorderC acC = new AtCorderC();
         AtCorderD acD = new AtCorderD();
         //acA.Ac444();
         //acB.Ac444();
         //pg.Q2();
-        //calc.Q10();
         //math.Math_091();
         //joi.Q13();
-        acC.Ac444();
+        //acC.Ac444();
         //acD.Ac437_2();
         //Solve();
+        //calc.Q10();
+        //binary.Q9();
+        data.Q7();
     }
 
-    public static void Solve()
-    {
-        //var alg = new Argorithm.Argorithm();
-        //var line = Console.ReadLine().Split().Select(int.Parse).ToArray();
-        //int n = line[0], s = line[1];
-        //var a = Console.ReadLine().Split().Select(int.Parse).ToArray();
-        //alg.IsPartialSum(n,s,a);
-    }
+    public static int[] ReadInts()
+        => Console.ReadLine()
+            .Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse)
+            .ToArray();
+
+    public static long[] ReadLongs()
+        => Console.ReadLine()
+            .Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+            .Select(long.Parse)
+            .ToArray();
 
     // 頂点・辺を受け取る
     public static void G()

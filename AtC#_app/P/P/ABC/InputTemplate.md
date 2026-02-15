@@ -1,5 +1,17 @@
 ﻿## 入力のテンプレート
 
+static int[] ReadInts()
+        => Console.ReadLine()
+            .Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse)
+            .ToArray();
+
+static long[] ReadLongs()
+        => Console.ReadLine()
+            .Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+            .Select(long.Parse)
+            .ToArray();
+
 ## 1行でスペースの区切りの配列に分割して受け取る
 入力：12 99 0
 // Split()の引数を省略すると" "区切りで配列型で分割
