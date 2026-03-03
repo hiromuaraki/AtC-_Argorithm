@@ -20,6 +20,8 @@ class Program
         アルゴ式.中級.計算量の工夫.Calculation calc = new アルゴ式.中級.計算量の工夫.Calculation();
         アルゴ式.中級.二分探索.BinarySearch2 binary = new アルゴ式.中級.二分探索.BinarySearch2();
         アルゴ式.中級.データ構造.DataStruct data = new アルゴ式.中級.データ構造.DataStruct();
+        アルゴ式.中級.貪欲法.Greedy greedy = new アルゴ式.中級.貪欲法.Greedy();
+        アルゴ式.中級.動的計画法.DynamicPrograming dp = new アルゴ式.中級.動的計画法.DynamicPrograming();
         AtCorderB acB = new AtCorderB();
         AtCorderC acC = new AtCorderC();
         AtCorderD acD = new AtCorderD();
@@ -33,7 +35,9 @@ class Program
         //Solve();
         //calc.Q10();
         //binary.Q9();
-        data.Q7();
+        //data.Q8();
+        //greedy.Q12();
+        dp.Q3();
     }
 
     public static int[] ReadInts()
