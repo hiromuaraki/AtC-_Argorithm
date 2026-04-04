@@ -37,7 +37,7 @@ class Program
         //binary.Q9();
         //data.Q8();
         //greedy.Q12();
-        dp.Q3();
+        dp.Q11(();
     }
 
     public static int[] ReadInts()
