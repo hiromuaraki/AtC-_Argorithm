@@ -23,6 +23,7 @@ class Program
         アルゴ式.中級.貪欲法.Greedy greedy = new アルゴ式.中級.貪欲法.Greedy();
         アルゴ式.中級.動的計画法.DynamicPrograming dp = new アルゴ式.中級.動的計画法.DynamicPrograming();
         アルゴ式.中級.メモ化再帰.Memo memo = new アルゴ式.中級.メモ化再帰.Memo();
+        アルゴ式.中級.ビット.Bit bit = new アルゴ式.中級.ビット.Bit();
         AtCorderB acB = new AtCorderB();
         AtCorderC acC = new AtCorderC();
         AtCorderD acD = new AtCorderD();
@@ -39,7 +40,8 @@ class Program
         //data.Q8();
         //greedy.Q12();
         //dp.Q11();
-        memo.Q10();
+        //memo.Q10();
+        bit.Q14();
     }
 
     public static int[] ReadInts()
