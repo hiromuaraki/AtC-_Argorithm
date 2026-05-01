@@ -305,7 +305,7 @@ namespace P.Argorithm
             {
 				var (v, u) = valueTuple[i];
 				// 0-indexed
-				v -= 1; u -= 1;
+				v--; u--;
                 // 頂点vに頂点uの辺を張る
                 graph[v].Add(u);
                 // 頂点uに頂点vの辺を張る

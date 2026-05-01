@@ -24,6 +24,8 @@ class Program
         アルゴ式.中級.動的計画法.DynamicPrograming dp = new アルゴ式.中級.動的計画法.DynamicPrograming();
         アルゴ式.中級.メモ化再帰.Memo memo = new アルゴ式.中級.メモ化再帰.Memo();
         アルゴ式.中級.ビット.Bit bit = new アルゴ式.中級.ビット.Bit();
+        アルゴ式.上級.配列の応用.DataArr dataArr = new アルゴ式.上級.配列の応用.DataArr();
+        アルゴ式.上級.ビット全探索.S s = new アルゴ式.上級.ビット全探索.S();
         AtCorderB acB = new AtCorderB();
         AtCorderC acC = new AtCorderC();
         AtCorderD acD = new AtCorderD();
@@ -41,7 +43,9 @@ class Program
         //greedy.Q12();
         //dp.Q11();
         //memo.Q10();
-        bit.Q14();
+        //bit.Q14();
+        //dataArr.Q6();
+        s.Q3();
     }
 
     public static int[] ReadInts()
