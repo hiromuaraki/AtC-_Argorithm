@@ -27,6 +27,7 @@ class Program
         アルゴ式.上級.配列の応用.DataArr dataArr = new アルゴ式.上級.配列の応用.DataArr();
         アルゴ式.上級.ビット全探索.S s = new アルゴ式.上級.ビット全探索.S();
         アルゴ式.上級.グラフ探索.Graph g = new アルゴ式.上級.グラフ探索.Graph();
+        アルゴ式.上級.動的計画法の活用.Dp Dp = new アルゴ式.上級.動的計画法の活用.Dp();
         AtCorderB acB = new AtCorderB();
         AtCorderC acC = new AtCorderC();
         AtCorderD acD = new AtCorderD();
@@ -47,7 +48,8 @@ class Program
         //bit.Q14();
         //dataArr.Q6();
         //s.Q3();
-        g.Q3();
+        //g.Q3();
+        Dp.Q9();
     }
 
     public static int[] ReadInts()
